@@ -1,0 +1,15 @@
+/Users/jojo/Desktop/Code/C#/Feb2026/obj/Debug/net9.0/Feb2026.GeneratedMSBuildEditorConfig.editorconfig
+/Users/jojo/Desktop/Code/C#/Feb2026/obj/Debug/net9.0/Feb2026.AssemblyInfoInputs.cache
+/Users/jojo/Desktop/Code/C#/Feb2026/obj/Debug/net9.0/Feb2026.AssemblyInfo.cs
+/Users/jojo/Desktop/Code/C#/Feb2026/obj/Debug/net9.0/Feb2026.csproj.CoreCompileInputs.cache
+/Users/jojo/Desktop/Code/C#/Feb2026/obj/Debug/net9.0/Feb2026.sourcelink.json
+/Users/jojo/Desktop/Code/C#/Feb2026/bin/Debug/net9.0/Feb2026
+/Users/jojo/Desktop/Code/C#/Feb2026/bin/Debug/net9.0/Feb2026.deps.json
+/Users/jojo/Desktop/Code/C#/Feb2026/bin/Debug/net9.0/Feb2026.runtimeconfig.json
+/Users/jojo/Desktop/Code/C#/Feb2026/bin/Debug/net9.0/Feb2026.dll
+/Users/jojo/Desktop/Code/C#/Feb2026/bin/Debug/net9.0/Feb2026.pdb
+/Users/jojo/Desktop/Code/C#/Feb2026/obj/Debug/net9.0/Feb2026.dll
+/Users/jojo/Desktop/Code/C#/Feb2026/obj/Debug/net9.0/refint/Feb2026.dll
+/Users/jojo/Desktop/Code/C#/Feb2026/obj/Debug/net9.0/Feb2026.pdb
+/Users/jojo/Desktop/Code/C#/Feb2026/obj/Debug/net9.0/Feb2026.genruntimeconfig.cache
+/Users/jojo/Desktop/Code/C#/Feb2026/obj/Debug/net9.0/ref/Feb2026.dll
