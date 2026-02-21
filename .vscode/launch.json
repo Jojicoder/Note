@@ -1,0 +1,32 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "SimpleCalc",
+            "request": "launch",
+            "mainClass": "Java.Feb2026.Day2_21_2026.SimpleCalc",
+            "projectName": "Code_52ec576f"
+        },
+        {
+            "type": "java",
+            "name": "WelcomeNYC",
+            "request": "launch",
+            "mainClass": "Java.Feb2026.Day2_20_2026.WelcomeNYC",
+            "projectName": "Code_52ec576f"
+        },
+        {
+            "name": "C/C++: clang++ build and debug active file",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${fileDirname}/${fileBasenameNoExtension}",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "lldb",
+            "preLaunchTask": "C/C++: clang++ build active file"
+        }
+    ],
+    "version": "2.0.0"
+}

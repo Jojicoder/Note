@@ -3,5 +3,6 @@
         "cpp": "cd $dir && g++ -std=c++17 $fileName -o $fileNameWithoutExt -I/opt/homebrew/opt/sfml/include -L/opt/homebrew/opt/sfml/lib -lsfml-graphics -lsfml-window -lsfml-system && $dir$fileNameWithoutExt"
     },
     "code-runner.runInTerminal": true,
-    "code-runner.saveFileBeforeRun": true
+    "code-runner.saveFileBeforeRun": true,
+    "C_Cpp.errorSquiggles": "disabled"
 }
