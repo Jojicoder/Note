@@ -20,3 +20,4 @@ public class SimpleCalc {
         return a*b;
     }
 }
+
