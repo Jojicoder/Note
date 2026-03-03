@@ -36,7 +36,7 @@ void calculate_plates(int target_weight) {
 // ==========================================
 int main() {
     // 315lbのデッドリフトを上げるためのプレートを計算
-    int my_deadlift_goal = 315;
+    int my_deadlift_goal = 265;
     
     calculate_plates(my_deadlift_goal);
 

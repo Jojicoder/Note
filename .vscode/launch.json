@@ -2,6 +2,41 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Day3_2_2026",
+            "request": "launch",
+            "mainClass": "Java.Mar2026.Day3_2_2026.Day3_2_2026",
+            "projectName": "Code_52ec576f"
+        },
+        {
+            "type": "java",
+            "name": "ArrayPractice",
+            "request": "launch",
+            "mainClass": "Java.Mar2026.Day3_2_2026.ArrayPractice",
+            "projectName": "Code_52ec576f"
+        },
+        {
+            "type": "java",
+            "name": "Loop",
+            "request": "launch",
+            "mainClass": "Java.Mar2026.Day3_2_2026.Loop",
+            "projectName": "Code_52ec576f"
+        },
+        {
+            "type": "java",
+            "name": "MyProfile",
+            "request": "launch",
+            "mainClass": "Java.Mar2026.Day3_2_2026.MyProfile",
+            "projectName": "Code_52ec576f"
+        },
+        {
+            "type": "java",
+            "name": "hello",
+            "request": "launch",
+            "mainClass": "Java.Mar2026.Day3_2_2026.hello",
+            "projectName": "Code_52ec576f"
+        },
+        {
+            "type": "java",
             "name": "SimpleCalc",
             "request": "launch",
             "mainClass": "Java.Feb2026.Day2_21_2026.SimpleCalc",

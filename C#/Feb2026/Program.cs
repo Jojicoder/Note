@@ -8,7 +8,7 @@ namespace Feb2026.Days
     static void Main(string[] args)
 {
     Console.WriteLine("Starting daily code excution...");
-        var todayCode = new Day_2026_02_20();
+        var todayCode = new  Day_2_22_2026();
         todayCode.Run();
 }
 }
