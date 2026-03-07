@@ -8,9 +8,9 @@ typedef struct{
 }Student;
 
 double calc_average(int *scores, int n){
-    double ave;
+    double ave=0.0;
     for(int i = 0;i<n;i++){
-        ave += scores;
+        ave += *scores;
         scores++;
     }
     ave /=n;
@@ -21,19 +21,20 @@ double calc_average(int *scores, int n){
 void print_all(Student *s,int n)
 {
     for(int i = 0; i<n;i++){
-        printf("name: %s, average: %d",student[i],calc_average(student.score,n));
+        printf("name: %s, average: %.2f\n",s[i].name,calc_average(s[i].scores,n));
     }
 }
 
 void print_best(Student *s, int n){
-    double best=s[0].score;
+    double best =calc_average(s[0].scores, 3);
+    int num = 0;
     for(int i = 1; i<n;i++){
-        if(best<calc_average(s.score,n)){
-            best = s[i].score;
-            int num = i;
+        if(best<calc_average(s[i].scores,n)){
+            best = calc_average(s[i].scores, n);
+             num= i;
         }
     }
-    printf("name: %s, average: %d",s.[num],best)
+    printf("name: %s, average: %.2f\n",s[num].name,best);
 }
 
 int main(void){
