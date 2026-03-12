@@ -1,5 +1,48 @@
 {
     "configurations": [
+    
+        {
+            "type": "java",
+            "name": "Day3_11_2026_1",
+            "request": "launch",
+            "mainClass": "Java.Mar2026.Day3_11_2026.Day3_11_2026_1",
+            "projectName": "Code_52ec576f"
+        },
+        {
+            "type": "java",
+            "name": "Day3_11_2026",
+            "request": "launch",
+            "mainClass": "Java.Mar2026.Day3_11_2026.Day3_11_2026",
+            "projectName": "Code_52ec576f"
+        },
+        {
+            "type": "java",
+            "name": "Day2_10_2026_3",
+            "request": "launch",
+            "mainClass": "Java.Mar2026.Day3_10_2026.Day2_10_2026_3",
+            "projectName": "Code_52ec576f"
+        },
+        {
+            "type": "java",
+            "name": "Day3_10_2026_3",
+            "request": "launch",
+            "mainClass": "Java.Mar2026.Day3_10_2026.Day3_10_2026_3",
+            "projectName": "Code_52ec576f"
+        },
+        {
+            "type": "java",
+            "name": "Day3_10_2026_2",
+            "request": "launch",
+            "mainClass": "Java.Mar2026.Day3_10_2026.Day3_10_2026_2",
+            "projectName": "Code_52ec576f"
+        },
+        {
+            "type": "java",
+            "name": "Day3_10_2026",
+            "request": "launch",
+            "mainClass": "Java.Mar2026.Day3_10_2026.Day3_10_2026",
+            "projectName": "Code_52ec576f"
+        },
         {
             "type": "java",
             "name": "Day3_9_2026_2",
