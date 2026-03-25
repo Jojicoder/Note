@@ -1,49 +1,45 @@
 #include <stdio.h>
 
 int my_strlen(const char *s){
-    int count =0;
-    while(*s != '\0'){
-        count++;
+    int count = 0;
+    while(*s !='\0'){
         s++;
+        count++;
     }
 
     return count;
 }
 
 void my_strcpy(char *dst, const char *src){
-
-    while(*src !='\0')
-    {
-        *dst = *src;
+    while(*src!='\0'){
+        *dst=*src;
         dst++;
         src++;
     }
+    *dst='\0';
 }
 
 int my_strcmp(const char *s1, const char *s2){
-    while (*s1 !='\0'&& *s1==*s2){
+    if(*s1 != '\0'&& *s1==*s2){
         s1++;
         s2++;
     }
-
-    return *s1 - *s2;
+    return *s1-*s2;
 }
 
 void my_strcat(char *s1, const char *s2){
-    while (*s1 !='\0')
+    while(*s1!='\0'){
         s1++;
+    }
 
-
-    while(*s2!='\0')
-    {
+    while(*s2!='\0'){
         *s1 = *s2;
         s1++;
         s2++;
     }
 
-    *s1='\0';
+    *s1 = '\0';
 }
-
 
 int main(){
     char src[] ="Hello";
