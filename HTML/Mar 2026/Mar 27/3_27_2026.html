@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <tltle>Practice From</tltle>
+    </head>
+    
+    <body>
+        <h1>Student Registration Form</h1>
+        <form action="#" method="post" autocomplete="on">
+            <label for="fname">First Name:</label><br>
+            <input type="text" id="fname" name="fname" placeholder="John" required autofocus><br><br>
+
+            <label for="lname">Last Name:</label><br>
+            <input type="text" id="lname" name="lname" placeholder="Doe" required><br><br>
+
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" placeholder="example@email.com" required><br><br>
+
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="possword" minlength="8" required><br><br>
+
+            <p>Choose your class type:</p>
+            <input type="radio" id="online" name="class_type" value="Online">
+            <label for="offline">Offline</label><br><br>
+
+            <p>Select your skills:</p>
+            <input type = "checkbox" id="html" name="skills_html" value="HTML">
+            <label for="html">HTML</label><br>
+
+            <input type="checkbox" id="css" name="skills_css" value="CSS">
+            <label for="css">CSS</label><br>
+
+            <input type="checkbox" id="javascript" name="skills_js" value="JavaScript">
+            <lebel for="javascript">JavaScript</lebel><br><br>
+
+            <label for="country">Choose your country:</label><br><br>
+            <select id="country" name="country">
+                <option value="usa">USA</option>
+                <option value="japan" selected>Japan</option>
+                <option value="canada">Canada</option> 
+            </select><br><br>
+
+            <label for="message">Why do you want to join??</label><br>
+            <textare id="message" name="message" rows="5" cols="30" placeholder="Write your message here..."></textare><br><br>
+        </form>
+    </body>
+</html>
