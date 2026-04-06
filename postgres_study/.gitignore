@@ -1,2 +1,16 @@
-# Ignore environment variables file
+# Environment variables
 .env
+.env.*
+!.env.example
+
+# macOS
+.DS_Store
+
+# Local database data and logs
+pgdata/
+postgres_data/
+data/
+*.log
+
+# Docker local overrides
+docker-compose.override.yml

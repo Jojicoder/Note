@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>CSS Text</title>
+        <style>
+
+            .center{text-align: center;}
+            .right {text-align: right;}
+            .left  {text-align: left;}
+
+            .overline   {text-decoration-line: overline;}
+            .underline  {text-decoration-line: underline;}
+            .linethrough{text-decoration-line: line-through;}
+
+            .decorated{
+                text-decoration: underline red dotted 2px;
+            }
+
+            .upper      {text-transform: uppercase;}
+            .lower      {text-transform: lowercase;}
+            .capitalize {text-transform: capitalize;}
+
+            .indent     {text-indent:50px;}
+            .spacing    {letter-spacing: 5px;}
+            .tall       {line-height: 2;}
+            .words      {word-spacing: 10px;}
+        </style>
+    </head>
+    <body>
+        <h2>Text Align</h2>
+        <p class="center"> This text is centered.</p>
+        <p class="right"> This text is right aligned.</p>
+        <p class="left">This text is left aligned.</p>
+
+        <hr/>
+
+        <h2>Text Decoration</h2>
+        <p class="overline">This text has an overline.</p>
+        <p class="underline">This text has an underline.</p>
+        <p class="linethrough">This text has a line through.</p>
+        <p class="decorated">This text has a red dotted underline.</p>
+
+        <hr />
+
+        <h2>Text Transform</h2>
+        <p class="upper">this text is uppercase.</p>
+        <p class="lower">THIS TEXT IS LOWERCASE.</p>
+        <p class="capitalize">this text is capitalized.</p>
+
+        <hr/>
+        <h2>Text Spacing</h2>
+        <p class="indent">This text has an indent of 50px.</p>
+        <p class="spacing">This text has letter spacing.</p>
+        <p class="tall">This text<br/>has a large<br/>line height.</p>
+        <p class="words">This text has word spacing.</p>
+    </body>
+
+</html>

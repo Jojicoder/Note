@@ -1,0 +1,29 @@
+# macOS
+.DS_Store
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+
+# Editor / IDE
+.idea/
+.vs/
+
+# C#
+bin/
+obj/
+
+# Java
+target/
+
+# Node.js
+node_modules/
+dist/
+build/
+
+# Python
+__pycache__/

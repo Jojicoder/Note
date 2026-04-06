@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>CSS Background</title>
+        <style>
+            .box1{
+                background-color: lightblue;
+                padding: 20px;
+            }
+
+            .box2{
+                background-image:url("https://placehold.co/100x100");
+                padding:60px;
+            }
+
+            .box3{
+                background-image: url("https://placehold.co/100x100");
+                background-repeat: no-repeat;
+                padding: 120px;
+            }
+
+            .box4{
+                background-image: url("https://placehold.co/100x100");
+                background-repeat: no-repeat;
+                background-position: right top;
+                padding: 120px;
+            }
+
+            .box5{
+                background: lightblue url("https://placehold.co/100x100")
+                            no-repeat right top;
+                padding: 120px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h2>background-color</h2>
+        <div class="box1">Light blue background color.</div>
+
+        <h2>background-image (repeated)</h2>
+        <div class="box2">Image repeats by default.</div>
+
+        <h2>background-repeat: no-repeat</h2>
+        <div class="box3">Image shows only once.</div>
+
+        <h2>background-position: right top</h2>
+        <div class="box4">Image is placed at right top.</div>
+
+        <h2>Shorthand background</h2>
+        <div class="box5">All background properties in one line.</div>
+    </body>
+</html>
