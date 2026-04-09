@@ -1,0 +1,142 @@
+/* =====================
+   Reset & Base
+   ===================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #fdf6ec;
+  color: #333333;
+}
+
+/* =====================
+   Header
+   ===================== */
+.header {
+  background-color: #2c2c2c;
+  color: #ffffff;
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.header__sub {
+  font-size: 0.9rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #c9a96e;
+  margin-bottom: 12px;
+}
+
+.header__title {
+  font-size: 3rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+}
+
+.header__desc {
+  font-size: 1rem;
+  color: #aaaaaa;
+  letter-spacing: 0.2em;
+}
+
+/* =====================
+   Menu
+   ===================== */
+.menu {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 60px 20px;
+}
+
+/* =====================
+   Section
+   ===================== */
+.section {
+  margin-bottom: 60px;
+}
+
+.section__title {
+  font-size: 1.6rem;
+  color: #2c2c2c;
+  border-bottom: 2px solid #c9a96e;
+  padding-bottom: 12px;
+  margin-bottom: 32px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+/* =====================
+   Cards Grid
+   ===================== */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+/* =====================
+   Card
+   ===================== */
+.card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+/* Card image */
+.card__img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Card body */
+.card__body {
+  padding: 20px;
+}
+
+/* Card name */
+.card__name {
+  font-size: 1.1rem;
+  color: #2c2c2c;
+  margin-bottom: 8px;
+}
+
+/* Card description */
+.card__desc {
+  font-size: 0.9rem;
+  color: #777777;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+/* Card price */
+.card__price {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #c9a96e;
+}
+
+/* =====================
+   Footer
+   ===================== */
+.footer {
+  background-color: #2c2c2c;
+  color: #aaaaaa;
+  text-align: center;
+  padding: 24px;
+  font-size: 0.85rem;
+}
