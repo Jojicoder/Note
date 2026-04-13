@@ -19,7 +19,7 @@ Person *create_person(const char *name, int age){
     return p;
 }
 
-void printf_person(Person *p){
+void print_person(Person *p){
     printf("name: %s, age: %d\n",p->name,p->age);
 }
 
@@ -27,8 +27,8 @@ int main(void){
     Person *alice = create_person("Alice", 30);
     Person *bob =   create_person("Bob", 25);
 
-    printf_person(alice);
-    printf_person(bob);
+    print_person(alice);
+    print_person(bob);
 
     free(alice);
     free(bob);
