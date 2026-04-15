@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>DOM Add & Remove</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="app">
+    <h1 class="title">DOM Add & Remove</h1>
+
+    <!-- Input area -->
+    <div class="input-area">
+      <input
+        type="text"
+        class="input"
+        id="textInput"
+        placeholder="Enter text..."
+      />
+      <button class="btn btn--add" id="addBtn">Add</button>
+    </div>
+
+    <!-- List area -->
+    <ul class="list" id="list">
+      <li class="list__item">
+        <span>Default item</span>
+        <button class="btn btn--delete">Delete</button>
+      </li>
+    </ul>
+
+    <!-- Clear all button -->
+    <button class="btn btn--clear" id="clearBtn">Clear All</button>
+
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>

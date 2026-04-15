@@ -1,0 +1,71 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f0f4f8;
+  padding: 40px 20px;
+}
+
+.app {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 1.8rem;
+  color: #6c63ff;
+  margin-bottom: 24px;
+}
+
+/* Loading */
+.loading {
+  color: #888888;
+  font-size: 1rem;
+  margin-bottom: 16px;
+}
+
+/* Error */
+.error {
+  color: #dc3545;
+  font-size: 1rem;
+  margin-bottom: 16px;
+}
+
+/* Cards grid */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+/* Card */
+.card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.card__name {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 6px;
+}
+
+.card__email {
+  font-size: 0.85rem;
+  color: #6c63ff;
+  margin-bottom: 6px;
+}
+
+.card__company {
+  font-size: 0.85rem;
+  color: #888888;
+}

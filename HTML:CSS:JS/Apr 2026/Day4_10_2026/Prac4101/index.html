@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fetch Deep Dive</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="app">
+    <h1 class="title">User Search</h1>
+
+    <!-- Search area -->
+    <div class="search">
+      <input
+        type="number"
+        class="search__input"
+        id="searchInput"
+        placeholder="Enter user ID (1-10)"
+        min="1"
+        max="10"
+      />
+      <button class="search__btn" id="searchBtn">Search</button>
+    </div>
+
+    <!-- States -->
+    <p class="loading" id="loading"></p>
+    <p class="error"   id="error"></p>
+
+    <!-- Cards -->
+    <div class="cards" id="cards"></div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
