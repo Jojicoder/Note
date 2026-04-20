@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Color and Background</title>
+  <style>
+
+    /* Reset */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: #f4f6fb;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      color: #4a3fbf;
+      margin-bottom: 32px;
+      text-align: center;
+    }
+
+    .section-title {
+      font-size: 1rem;
+      font-weight: bold;
+      color: #4a3fbf;
+      border-bottom: 2px solid #4a3fbf;
+      padding-bottom: 6px;
+      margin-bottom: 20px;
+      margin-top: 36px;
+    }
+
+    /* =====================
+       Color: 3 ways to specify
+       ===================== */
+
+    /* color name */
+    .box-name {
+      background-color: tomato;
+      color: white;
+      padding: 16px 20px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    /* HEX value */
+    .box-hex {
+      background-color: #4a3fbf;
+      color: white;
+      padding: 16px 20px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    /* RGB value */
+    .box-rgb {
+      background-color: rgb(46, 204, 113);
+      color: white;
+      padding: 16px 20px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    /* RGBA value: 4th value = opacity (0〜1) */
+    .box-rgba {
+      background-color: rgba(0, 0, 0, 0.4);
+      color: white;
+      padding: 16px 20px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    /* =====================
+       Background properties
+       ===================== */
+
+    /* background-color only */
+    .bg-color {
+      background-color: #e8e4ff;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    /* background-image: repeats by default */
+    .bg-image {
+      background-color: #e8e4ff;
+      background-image: url("https://placehold.co/60x60");
+      height: 120px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    /* background-repeat: no-repeat */
+    .bg-no-repeat {
+      background-color: #e8e4ff;
+      background-image: url("https://placehold.co/60x60");
+      background-repeat: no-repeat;
+      height: 120px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    /* background-position: right top */
+    .bg-position {
+      background-color: #e8e4ff;
+      background-image: url("https://placehold.co/60x60");
+      background-repeat: no-repeat;
+      background-position: right top;
+      height: 120px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    /* background shorthand:
+       color image repeat attachment position */
+    .bg-shorthand {
+      background: #e8e4ff url("https://placehold.co/60x60")
+                  no-repeat right bottom;
+      height: 120px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    /* label text inside bg boxes */
+    .bg-label {
+      padding: 12px 16px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      color: #4a3fbf;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <h1>Part 1 — Color &amp; Background</h1>
+
+    <!-- Color section -->
+    <p class="section-title">1. Color</p>
+
+    <div class="box-name">background-color: tomato (color name)</div>
+    <div class="box-hex">background-color: #4a3fbf (HEX)</div>
+    <div class="box-rgb">background-color: rgb(46, 204, 113) (RGB)</div>
+    <div class="box-rgba">background-color: rgba(0, 0, 0, 0.4) (RGBA)</div>
+
+    <!-- Background section -->
+    <p class="section-title">2. Background</p>
+
+    <div class="bg-color">
+      <p class="bg-label">background-color only</p>
+    </div>
+
+    <div class="bg-image">
+      <p class="bg-label">background-image (repeats by default)</p>
+    </div>
+
+    <div class="bg-no-repeat">
+      <p class="bg-label">background-repeat: no-repeat</p>
+    </div>
+
+    <div class="bg-position">
+      <p class="bg-label">background-position: right top</p>
+    </div>
+
+    <div class="bg-shorthand">
+      <p class="bg-label">background shorthand: no-repeat right bottom</p>
+    </div>
+
+  </div>
+</body>
+</html>
