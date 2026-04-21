@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang ="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width-device-width, initial-scale=1.0"/>
+        <title>Text and Font</title>
+        <style>
+            *,
+            *::before,
+            *::after{
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            body{
+                font-family: Arial, Helvetica,sans-serif;
+                background-color: #f4f6fb;
+                padding: 40px 20px;
+            }
+
+            .container{
+                max-width: 700px;
+                margin: 0 auto;
+            }
+
+            h1{
+                font-size: 1.8rem;
+                color: #4a3fbf;
+                margin-bottom: 32px;
+                text-align: center;
+            }
+
+            .section-title{
+                font-size: 1rem;
+                font-weight: bold;
+                color: #4a3fbf;
+                border-bottom: 2px solid #4a3fbf;
+                padding-bottom: 6px;
+                margin-bottom: 20px;
+                margin-top: 36px;
+            }
+
+            .demo-box{
+                background-color: #ffffff;
+                border-radius: 8px;
+                padding: 20px 24px;
+                margin-bottom: 32px;
+                display: flex;
+                flex-direction: column;
+                gap: 14px;
+            }
+            
+            .t-center {text-align: center;}
+            .t-right  {text-align: right;}
+            .t-under {text-decoration: underline blue solid 2px;}
+            .t-through {text-decoration: line-through red wavy 2px;}
+            .t-none {text-decoration: none; color: #4a3fbf;}
+
+            .t-upper{text-transform: uppercase;}
+            .t-lower{text-transform: lowercase;}
+            .t-cap  {text-transform: capitalize;}
+
+            .t-indent{text-indent: 40px;}
+            .t-ls    {letter-spacing: 6px;}
+            .t-lh    {line-height: 2.5;}
+            .t-ws    {word-spacing:16px;}
+
+            .f-serif {font-family: "Times New Roman", Times, serif;}
+            .f-mono  {font-family: "Courier New", Courier,monospace;}
+            .f-large {font-size: 2rem;}
+            .f-small {font-size: 0.75rem;}
+            .f-bold  {font-weight: bold;}
+            .f-light {font-weight: lighter;}
+            .f-italic{font-style: italic;}
+            .f-caps  {font-variant: small-caps;}
+
+        </style>
+    </head>
+    <body>
+        <dic class="container">
+            <h1>Part 2 -Text &amp; Font</h1>
+
+             <p class="section-title">1. Text Properties</p>
+    <div class="demo-box">
+      <p class="t-center">text-align: center</p>
+      <p class="t-right">text-align: right</p>
+      <p class="t-under">text-decoration: underline blue solid</p>
+      <p class="t-through">text-decoration: line-through red wavy</p>
+      <a class="t-none" href="#">text-decoration: none (link)</a>
+      <p class="t-upper">text-transform: uppercase</p>
+      <p class="t-lower">TEXT-TRANSFORM: LOWERCASE</p>
+      <p class="t-cap">text-transform: capitalize each word</p>
+      <p class="t-indent">text-indent: 40px — first line is indented.</p>
+      <p class="t-ls">letter-spacing: 6px</p>
+      <p class="t-lh">line-height: 2.5 — tall line height.</p>
+      <p class="t-ws">word-spacing: 16px between words</p>
+    </div>
+
+    <!-- Font properties -->
+    <p class="section-title">2. Font Properties</p>
+    <div class="demo-box">
+      <p class="f-serif">font-family: Times New Roman, serif</p>
+      <p class="f-mono">font-family: Courier New, monospace</p>
+      <p class="f-large">font-size: 2rem</p>
+      <p class="f-small">font-size: 0.75rem — small text</p>
+      <p class="f-bold">font-weight: bold</p>
+      <p class="f-light">font-weight: lighter</p>
+      <p class="f-italic">font-style: italic</p>
+      <p class="f-caps">font-variant: small-caps — hello world</p>
+    </div>
+        </dic>
+    </body>
+</html>
