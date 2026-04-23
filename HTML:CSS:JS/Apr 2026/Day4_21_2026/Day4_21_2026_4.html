@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registration Form</title>
+</head>
+<body>
+
+  <h1>Registration Form</h1>
+
+  <form action="#" method="post">
+
+    <!-- Personal Information -->
+    <h2>Personal Information</h2>
+
+    <label for="firstName">First Name:</label><br />
+    <input type="text" id="firstName" name="firstName" required /><br /><br />
+
+    <label for="lastName">Last Name:</label><br />
+    <input type="text" id="lastName" name="lastName" required /><br /><br />
+
+    <label for="email">Email:</label><br />
+    <input type="email" id="email" name="email" required /><br /><br />
+
+    <label for="dob">Date of Birth:</label><br />
+    <input type="date" id="dob" name="dob" /><br /><br />
+
+    <!-- Account Information -->
+    <h2>Account Information</h2>
+
+    <label for="username">Username:</label><br />
+    <input
+      type="text"
+      id="username"
+      name="username"
+      required
+      minlength="5"
+      maxlength="20"
+    /><br /><br />
+
+    <label for="password">Password:</label><br />
+    <input
+      type="password"
+      id="password"
+      name="password"
+      required
+      minlength="8"
+      maxlength="20"
+    /><br /><br />
+
+    <label for="confirmPassword">Confirm Password:</label><br />
+    <input
+      type="password"
+      id="confirmPassword"
+      name="confirmPassword"
+      required
+      minlength="8"
+      maxlength="20"
+    /><br /><br />
+
+    <!-- Preferences -->
+    <h2>Preferences &amp; Options</h2>
+
+    <p>Gender:</p>
+    <input type="radio" id="male" name="gender" value="male" />
+    <label for="male">Male</label><br />
+    <input type="radio" id="female" name="gender" value="female" />
+    <label for="female">Female</label><br /><br />
+
+    <p>Interests:</p>
+    <input type="checkbox" id="coding" name="interests" value="coding" />
+    <label for="coding">Coding</label><br />
+    <input type="checkbox" id="music" name="interests" value="music" />
+    <label for="music">Music</label><br />
+    <input type="checkbox" id="sports" name="interests" value="sports" />
+    <label for="sports">Sports</label><br />
+    <input type="checkbox" id="reading" name="interests" value="reading" />
+    <label for="reading">Reading</label><br /><br />
+
+    <label for="country">Country:</label><br />
+    <select id="country" name="country">
+      <option value="us">United States</option>
+      <option value="jp">Japan</option>
+      <option value="uk">United Kingdom</option>
+      <option value="ca">Canada</option>
+      <option value="au">Australia</option>
+    </select><br /><br />
+
+    <!-- Additional Information -->
+    <h2>Additional Information</h2>
+
+    <label for="bio">Short Bio:</label><br />
+    <textarea
+      id="bio"
+      name="bio"
+      rows="4"
+      cols="40"
+      maxlength="300"
+      placeholder="Tell us about yourself..."
+    ></textarea><br /><br />
+
+    <label for="photo">Profile Picture:</label><br />
+    <input type="file" id="photo" name="photo" /><br /><br />
+
+    <!-- Buttons -->
+    <button type="submit">Submit</button>
+    <button type="reset">Reset</button>
+
+  </form>
+
+</body>
+</html>
