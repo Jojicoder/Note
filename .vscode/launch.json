@@ -2,6 +2,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Day4_25_2026_2",
+            "request": "launch",
+            "mainClass": "Day4_25_2026_2",
+            "projectName": "Code_52ec576f"
+        },
+        {
+            "type": "java",
+            "name": "Day4_25_2026",
+            "request": "launch",
+            "mainClass": "Java.Apr2026.Apr_25.Day4_25_2026",
+            "projectName": "Code_52ec576f"
+        },
+        {
+            "type": "java",
             "name": "Day4_8_2026_1",
             "request": "launch",
             "mainClass": "Java.Apr2026.Apr_8.Day4_8_2026_1",

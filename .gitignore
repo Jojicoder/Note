@@ -1,6 +1,10 @@
 # macOS
 .DS_Store
 
+# Windows
+Thumbs.db
+desktop.ini
+
 # Environment files
 .env
 .env.*
@@ -19,6 +23,9 @@ obj/
 
 # Java
 target/
+*.class
+*.jar
+*.war
 
 # Node.js
 node_modules/
@@ -27,3 +34,14 @@ build/
 
 # Python
 __pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.coverage
+
+# Editor swap files
+*.swp
+*~
