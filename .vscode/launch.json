@@ -2,6 +2,34 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Day4_26_2026_2",
+            "request": "launch",
+            "mainClass": "Day4_26_2026_2",
+            "projectName": "Code_52ec576f"
+        },
+        {
+            "type": "java",
+            "name": "Day4_26_2026",
+            "request": "launch",
+            "mainClass": "Day4_26_2026",
+            "projectName": "Code_52ec576f"
+        },
+        {
+            "type": "java",
+            "name": "Day4_26_2026",
+            "request": "launch",
+            "mainClass": "Java.Apr2026.Apr_26.Day4_26_2026",
+            "projectName": "Code_52ec576f"
+        },
+        {
+            "type": "java",
+            "name": "Day4_25_2026_3",
+            "request": "launch",
+            "mainClass": "Day4_25_2026_3",
+            "projectName": "Code_52ec576f"
+        },
+        {
+            "type": "java",
             "name": "Day4_25_2026_2",
             "request": "launch",
             "mainClass": "Day4_25_2026_2",
