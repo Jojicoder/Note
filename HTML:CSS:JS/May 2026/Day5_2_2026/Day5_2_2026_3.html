@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        
+        <style>
+            body{
+                background-color: lightgray;
+            }
+        </style>
+    </head>
+    <body>
+        <h2 id="result">Result: </h2>
+        <button onclick="add()">+</button>
+        <button onclick="sub()">-</button>
+        <button onclick="multi()">*</button>
+        <button onclick="div()">/</button>
+
+        <script>
+            let x = Number(prompt("Enter first number"));
+            let y = Number(prompt("Enter second number"));
+
+            function add(){
+                document.getElementById("result").innerHTML = "Result: "+(x+y);
+            }
+
+            function sub(){
+                document.getElementById("result").innerHTML = "Result: "+(x-y); 
+            }
+
+            function multi(){
+                document.getElementById("result").innerHTML = "Result: " +(x*y);
+            }
+            function div(){
+                document.getElementById("result").innerHTML = "Result: " +(x/y);
+            }
+        </script>
+    </body>
+</html>

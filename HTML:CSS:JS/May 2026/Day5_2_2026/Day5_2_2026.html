@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <style>
+            #title{
+                color:black;
+                font-size: 30px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 id="title">Hello</h1>
+        <button onclick="changeText()">Change Text</button>
+        <button onclick="changeColor()">Change Color</button>
+        <button onclick="changeSize()">Change Size</button>
+
+        <script>
+            function changeText(){
+                document.getElementById("title").innerHTML = "Hi!";
+            }
+        
+            function changeColor(){
+                document.getElementById("title").style.color="red";
+            }
+
+            function changeSize(){
+                document.getElementById("title").style.fontSize="60px";
+            }
+        </script>
+    </body>
+</html>

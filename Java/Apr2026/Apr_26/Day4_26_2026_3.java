@@ -7,8 +7,7 @@ public class Day4_26_2026_3 {
         names.add("bob");
         names.add("charlie");
 
-        name.stream()
-            .map(n -> n.toUpper)
+       
                             
     }
 }

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .highlight{
+                color:red;
+                background-color: yellow;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 id="title">Hello</h1>
+        <button onclick="toggleHighlight()">Toggle!</button>
+
+        <script>
+            function toggleHighlight(){
+                document.getElementById("title").classList.toggle("highlight");
+            }
+        </script>
+
+    </body>
+</html>

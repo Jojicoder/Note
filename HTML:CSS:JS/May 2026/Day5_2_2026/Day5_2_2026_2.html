@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <style>
+            #count{
+                font-size: 60px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 id="count">0</h1>
+        <button onclick="increment()">+</button>
+        <button onclick="decrement()">-</button>
+        <button onclick="reset()">Reset</button>
+
+        <script>
+            let count=0;
+
+            function increment(){
+                count++;
+                document.getElementById("count").innerHTML = count;
+            }
+
+            function decrement(){
+                count--;
+                document.getElementById("count").innerHTML =count;
+            }
+
+            function reset(){
+                count=0;
+                document.getElementById("count").innerHTML = count;
+            }
+        </script>
+    </body>
+</html>
