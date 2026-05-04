@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body{
+                text-align: center;
+                font-family: Arial, sans-serif;
+                background-color: whitesmoke;
+            }
+
+            button{
+                padding: 10px 20px;
+                margin: 5px;
+                border-radius: 5px;
+                background-color: lightblue;
+                border: none;
+                font-size: 16px;
+            }
+
+            button:hover{
+                background-color: steelblue;
+                color: white;
+            }
+
+            #result{
+                font-size: 24px;
+            }
+        </style>
+    </head>
+    <body>
+        <h2 id="result">Result will show here</h2>
+        <button onclick="play('rock')">Rock</button>
+        <button onclick="play('scissors')">Scissors</button>
+        <button onclick="play('paper')">Paper</button>
+
+        <script>
+            function play(playerChoice){
+                let choices = ["rock", "scissors", "paper"];
+                let computerChoice = choices[Math.floor(Math.random()*3)];
+
+                
+                
+                let result;
+
+                if(playerChoice === computerChoice){
+                    result = "Draw!";
+                }else if(
+                    (playerChoice === "rock" && computerChoice==="scissors")||
+                    (playerChoice === "scissors" && computerChoice==="paper")||
+                    (playerChoice === "paper" && computerChoice ==="rock")
+            ){
+                    result = "You win!";
+                }else{
+                    result = "You Lose!";
+                }
+                document.getElementById("result").innerHTML =
+                    "You: "+ playerChoice + " vs Computer: " + computerChoice+ " -> "+ result;
+            }
+        </script>
+    </body>
+</html>

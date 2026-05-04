@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <script>
+            function add(x,y){
+                return x+y;
+            }
+            console.log("add: "+ add(3,5));
+
+            const multiply = (x,y)=>(x*y);
+            console.log("multiply: "+multiply(3,5));
+
+            const double = x => x*2;
+            console.log("double: " +double(5));
+
+            function greet(name, callback){
+                console.log("Hello " + name);
+                callback();
+            }
+
+            function sayBye(){
+                console.log("Goodbye!");
+            }
+
+            greet("John", sayBye);
+
+            greet("Mike", () => {
+                console.log("See you!");
+            });
+
+            function apply(num,callback){
+                console.log(callback(num));
+            }
+
+            apply(5, double);
+        </script>
+    </body>
+</html>
