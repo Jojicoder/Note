@@ -6,7 +6,8 @@
     "code-runner.saveFileBeforeRun": true,
     "C_Cpp.errorSquiggles": "disabled",
     "java.project.sourcePaths": [
+        "Java/May2026/Day5_2_2026",
         "Java/Apr2026/Apr_26",
-        "Java/May2026/Day5_2_2026"
+        "Java/May2026/Day5_4_2026"
     ]
 }
