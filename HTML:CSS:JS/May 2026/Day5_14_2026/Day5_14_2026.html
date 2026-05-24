@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <script>
+            let cars = ["Saab","Volvo","BMW"];
+
+            document.write(cars[0] + "<br>");
+            document.write(cars[1] + "<br>");
+            document.write(cars[2]+ "<br>");
+
+            document.write(cars.length + "<br>");
+
+            cars[0] = "Toyota";
+            document.write(cars[0] + "<br>");
+
+            cars.push("Ford");
+            document.write(cars + "<br>");
+
+            cars.pop();
+            document.write(cars + "<br>");
+
+            cars.shift();
+            document.write(cars + "<br>");
+
+            cars.unshift("Mercedes");
+            document.write(cars + "<br>");
+
+            for(let i = 0; i< cars.length;i++){
+                document.write(cars[i]+"<br>");
+            }
+
+            let user = {
+                name: "John",
+                age: 30,
+                isAdmin: true
+            };
+
+            document.write(user.name + "<br>");
+            document.write(user.age + "<br>");
+
+            document.write(user["name"]+ "<br>");
+            
+
+
+
+        </script>
+    </body>
+</html>

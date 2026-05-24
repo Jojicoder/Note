@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <h3>Sign Up</h3>
+        <input type="text" id="signupName" placeholder="Full Name">
+        <input type="text" id="signupUsername" placeholder="Username">
+        <input type="password" id="signupPassword" placeholder="Password">
+        <button onclick="signup()">Sign Up</button>
+
+        <h3>Login</h3>
+        <input type="text" id="loginUsername" placeholder="Username">
+        <input type="password" id="loginPassword" placeholder="Password">
+        <button onclick="login()">Login</button>
+
+        <p id="message"></p>
+
+        <script>
+            function signup(){
+                let users = JSON.parse(localStorage.getItem("users")) || {};
+                const name = document.getElementById('signupName').value.trim();
+                const username = document.getElementById('signupUsername').value.trim();
+                const password = document.getElementById('signupPassword').value;
+
+                if(!name||!username||!password){
+                    showMessage("Please fill in all fields.");
+                    return;
+                }
+
+                if(users[username]){
+                    showMessage("Username already exists.");
+                    return;
+                }
+
+                users[username]={name, password};
+                localStorage.setItem("users",JSON.stringify(users));
+                showMessage("User registered successfully!");
+            }
+
+            function login(){
+                let users = JSON.parse(localStorage.getItem("users"))||{};
+
+                const username=document.getElementById('loginUsername').value.trim();
+                const password=document.getElementById('loginPassword').value;
+
+                if(users[username] && users[username].password===password){
+                    showMessage(`Welcome back, ${users[username].name}!`);
+                }else{
+                    showMessage("Invalid username or password.");   
+                }
+            }
+             function showMessage(msg){
+                    document.getElementById('message').textContent = msg;
+                }
+        </script>
+    </body>
+</html>
