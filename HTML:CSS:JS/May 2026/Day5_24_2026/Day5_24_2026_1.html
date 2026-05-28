@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <h2>Fruit Basket Manager</h2>
+        <input type="text" id="fruitInput" placeholder="Enter a fruit">
+        <button onclick="addFruit()">Add</button>
+        <button onclick="showBasket()">Show</button>
+        <button onclick="searchFruit()">Search</button>
+        <button onclick="removeFruit()">Remove</button>
+        <p id="output"></p>
+
+        <script>
+            let fruitBasket=[];
+
+            function addFruit(){
+                let fruit=document.getElementById("fruitInput").value;
+                if(fruit){
+                    fruitBasket.push(fruit);
+                    document.getElementById("fruitInput").value="";
+                }
+            }
+
+            function showBasket(){
+                document.getElementById("output").innerText = "Basket: " + fruitBasket.join(", ");
+            }
+
+            function searchFruit(){
+                let fruit = document.getElementById("fruitInput").value;
+                if(fruitBasket.includes(fruit)){
+                    document.getElementById("output").innerText = fruit + " is in the basket.";
+                }else{
+                    document.getElementById("output").innerText = fruit + " is NOT in the basket.";
+                }
+                document.getElementById("fruitInput").value = "";
+            }
+
+            function removeFruit(){
+                let fruitToRemove = document.getElementById("fruitInput").value;
+                for(let i = 0 ;i<=fruitBasket.length - 1 ;i++){
+                    if(fruitBasket[i]== fruitToRemove){
+                        fruitBasket.splice(i,1);
+                    }
+                }
+                document.getElementById("output").innerText = fruitToRemove + " is removed.";
+                document.getElementById("fruitInput").value = "";
+            }
+        </script>
+    </body>
+</html>

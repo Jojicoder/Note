@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <script>
+            let fruits = ["Apple","Banana","Mango"];
+
+            fruits.push("Orange");
+            document.write("push: " + fruits + "<br>");
+
+            let removed = fruits.pop();
+            document.write("pop: " + removed + "<br>");
+            document.write("after pop: "+ fruits+"<br>");
+
+            fruits.unshift("Strawberry");
+            document.write("unshift: " + fruits+"<br>");
+
+            let first = fruits.shift();
+            document.write("shift: " + first + "<br>");
+            document.write("after shift: " + fruits + "<br>");
+
+            document.write("length: "+ fruits.length + "<br>");
+
+            let citrus = ["Lemon","Lime"];
+            let all = fruits.concat(citrus);
+            document.write("concat: " +all +"<br>");
+
+            document.write("join: " +fruits.join(" - ")+ "<br>");
+
+            let sliced = fruits.slice(0,2);
+            document.write("slice: "+ sliced+"<br>");
+
+            document.write("includes Banana: " + fruits.includes("Banana")+ "<br>");
+            document.write("includes Grape: " + fruits.includes("Grape")+"<br>");
+
+            document.write("indexOf Banana: "+ fruits.indexOf("Banana")+"<br>");
+            document.write("indexOf Grape: "+ fruits.indexOf("Grape")+ "<br>");
+
+            fruits.push("Banana");
+            document.write("lastIndexOf Banana: " + fruits.lastIndexOf("Banana") + "<br>");
+
+            let index = fruits.indexOf("Banana");
+            if(index!==-1){
+                fruits.splice(index,1);
+            }
+            document.write("after splice: " + fruits + "<br>");
+
+            document.write("--- loop ---" +"<br>");
+            for(let i = 0;i<fruits.length;i++){
+                document.write(fruits[i]+"<br>");
+            }
+        </script>
+    </body>
+</html>

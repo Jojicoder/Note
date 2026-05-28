@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <p id="message">Click the button to change this text.</p>
+        <button onclick="changeText()">Click me!</button>
+        <br>
+        <input type="text" id="myText" value="Mickey">
+        <input type="text" id="myText2" value="">
+        <button onclick="copyText()">Copy</button>
+
+        <script>
+            let globalVar = 25;
+            
+            function local_vs_global(){
+                let localVar = 15;
+                document.write("globalVar: " + globalVar+" localVar: "+localVar+"<br>");
+            }
+            local_vs_global();
+            document.write("globalVar: " + globalVar + "<br>");
+
+            function showMessage(from, text){
+                document.write(from + ": " + text+ "<br>");
+            }
+            showMessage("Ann", "Hello");
+            showMessage("Ann", "What's up?");
+
+            function greet(from, text = "no text given" ){
+                document.write(from + ": "+text+"<br>");
+            }
+            greet("Ann");
+            greet("Ann","Hello!");
+
+            function sum(a,b){
+                return a+b;
+            }
+            document.write("sum: " + sum(1,2)+"<br>");
+
+            function checkAge(age){
+                if(age>=18){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+
+            document.write("checkAge(20): " + checkAge(20)+"<br>");
+            document.write("checkAge(15): " + checkAge(15)+"<br>");
+
+            function changeText(){
+                document.getElementById("message").textContent="Text has been changed!";
+            }
+
+            function copyText(){
+                document.getElementById("myText2").value = document.getElementById("myText").value;
+            }
+        </script>
+    </body>
+</html>

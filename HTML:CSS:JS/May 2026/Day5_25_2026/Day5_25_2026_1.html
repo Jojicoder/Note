@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <script>
+            let name = "John";
+            let age = 25;
+            let isAdmin = true;
+            let car;
+            document.write(typeof name + "<br>");
+            document.write(typeof age + "<br>");
+            document.write(typeof isAdmin + "<br>");
+            document.write(typeof car + "<br>");
+
+            document.write((100 + 50 * 3) + "<br>");
+            document.write(((100+50) * 3) + "<br>");
+            document.write((5=== "5") + "<br>");
+            document.write((true && false) + "<br>");
+            document.write((true || false) + "<br>");
+
+            let hour = 15;
+            if(hour < 10){
+                document.write("Good morning" + "<br>");
+            }else if(hour < 18){
+                document.write("Good day" + "<br>");
+            }else{
+                document.write("Good evening" + "<br>");
+            }
+
+            function sum(a,b){
+                return a + b;
+            }
+
+            const multiply = (a,b) => a * b;
+            document.write("sum: " + sum(3,5)+ "<br>");
+            document.write("multiply: " + multiply(3,5)+ "<br>");
+
+            let fruits = ["Apple", "Banana","Mango"];
+            fruits.push("Orange");
+            fruits.pop();
+            document.write(fruits.join(", ")+ "<br>");
+            document.write(fruits.includes("Banana") + "<br>");
+
+            let user = {
+                name: "John",
+                age: 30,
+                greet: function(){
+                    return "Hello, " + this.name;
+                    }
+            };
+            document.write(user.name + "<br>");
+            document.write(user.greet() + "<br>");
+
+
+        </script>
+    </body>
+</html>
