@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .highlight{
+                background-color: yellow;
+                font-weight: bold;
+            }
+
+            .hidden{
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <p id="demo">Hello!</p>
+        <p class="text">Paragraph 1</p>
+        <p class="text">Paragraph 2</p>
+        <div id="container">
+            <p>First</p>
+            <p>Last</p>
+        </div>
+
+        <button onclick="byId()">getElementById</button>
+        <button onclick="byClass()">getElementsByClassName</button>
+        <button onclick="byTag()">getElementsByTagName</button>
+        <button onclick="toggleH()">Toggle Highlight</button>
+        <button onclick="firstLast()">First & Last</button>
+
+        <script>
+            function byId(){
+                document.getElementById("demo").textContent = "Changed!";
+            }
+
+            function byClass(){
+                const items = document.getElementsByClassName("text");
+                alert(items[1].textContent);
+            }
+
+            function byTag(){
+                const tags = document.getElementsByTagName("p");
+                for(let i = 0; i < tags.length;i++){
+                    tags[i].style.color = "red";
+                }
+            }
+
+            function toggleH(){
+                document.getElementById("demo").classList.toggle("highlight");
+            }
+
+            function firstLast(){
+                const container = document.getElementById("container");
+                container.firstElementChild.style.backgroundColor = "lightgreen";
+                container.lastElementChild.style.backgroundColor = "lightblue";
+            }
+        </script>
+    </body>
+</html>

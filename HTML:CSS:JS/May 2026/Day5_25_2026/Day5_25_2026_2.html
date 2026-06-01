@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .highlight{
+                color: red;
+                background-color: yellow;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 id="title">Hello</h1>
+        <p class="title">This is a paragraph.</p>
+        <p class="title">Test</p>
+
+        <button onclick="changeText()">Change Text</button>
+        <button onclick="changeColor()">Change Color</button>
+        <button onclick="changeSize()">Change Size</button>
+        <button onclick="toggleHighlight()">Toggle Highlight</button>
+
+        <script>
+            
+            function changeText(){
+                let items = document.querySelectorAll(".title");
+            for(let i = 0;i<items.length;i++){
+                items[i].innerHTML = "Hi!";
+            }
+            }
+
+            function changeColor(){
+                document.getElementById("title").style.color = "red";
+            }
+
+            function changeSize(){
+                document.getElementById("title").style.fontSize = "60px";
+            }
+
+            function toggleHighlight(){
+                document.getElementById("text").classList.toggle("highlight");
+            }
+        </script>
+    </body>
+</html>
