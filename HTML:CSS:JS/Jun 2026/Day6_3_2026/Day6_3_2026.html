@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .highlight{
+                background-color: yellow;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>JS Review</h2>
+        <p id="demo">Hello</p>
+        <p class="text">Paragraph 1</p>
+        <p class="text">Paragraph 2</p>
+        <button onclick="byId()">getElementById</button>
+        <button onclick="byClass()">getElementsByClassName</button>
+        <button onclick="toggleH()">Toggle</button>
+
+        <script>
+            let name = "John";
+            let age = 25;
+            let car;
+            document.write(typeof name + "<br>");
+            document.write(typeof age + "<br>");
+            document.write(typeof car + "<br>");
+            document.write(typeof null + "<br>");
+
+            document.write((100 + 50 *3) +"<br>");
+            document.write(((100+50)*3) + "<br>");
+            document.write((5==="5")+"<br>");
+            document.write((true && false)+"<br>");
+            document.write((true || false)+ "<br>");
+
+            let hour = 15;
+            if(hour < 10){
+                document.write("Good morning" + "<br>");
+            }else if (hour < 18){
+                document.write("Good day" + "<br>");
+            }else{
+                docuemnt.write("Good evening" + "<br>");
+            }
+
+            let access = (age > 18) ? "Allowed" : "Denied";
+            document.write(access + "<br>");
+
+            function sum(a, b){
+                return a+b;
+            }
+            const double = x => x*2;
+            document.write("sum: " +sum(3,5) +"<br>");
+            document.write("double: "+double(5) + "<br>");
+
+            let fruits = ["Apple", "Banana", "Mango"];
+            fruits.push("Orange");
+            fruits.pop();
+            fruits.unshift("Strawberry");
+            fruits.shift();
+
+            document.write(fruits.join(", ")+ "<br>");
+            document.write(fruits.includes("Banana")+ "<br>");
+        </script>
+    </body>
+</html>
