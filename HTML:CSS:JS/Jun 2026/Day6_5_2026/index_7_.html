@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tailwind vs 普通のCSS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    /* ── 普通のCSS デモ用スタイル（比較用） ─────────────── */
+
+    /* ボタン */
+    .plain-btn {
+      background: #6366f1;
+      color: #fff;
+      font-weight: 700;
+      padding: 12px 28px;
+      border-radius: 9999px;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.25s;
+    }
+    .plain-btn:hover { background: #4338ca; }
+
+    /* カード */
+    .plain-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+    .plain-card-badge {
+      display: inline-block;
+      background: #ede9fe;
+      color: #6d28d9;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+      letter-spacing: 0.06em;
+    }
+    .plain-card-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 6px;
+    }
+    .plain-card-text {
+      font-size: 13px;
+      color: #64748b;
+      line-height: 1.7;
+    }
+
+    /* レスポンシブグリッド */
+    .plain-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    @media (max-width: 540px) {
+      .plain-grid { grid-template-columns: 1fr; }
+    }
+    .plain-grid-item {
+      background: #f1f5f9;
+      border-radius: 8px;
+      padding: 16px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: #475569;
+    }
+
+    /* フォーカスつきインプット */
+    .plain-input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .plain-input:focus {
+      border-color: #6366f1;
+      box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
+    }
+  </style>
+</head>
+
+<body class="bg-slate-50 text-slate-800">
+
+  <!-- ── ヘッダー ────────────────────────────────────────── -->
+  <header class="sticky top-0 z-50 bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between">
+    <p class="font-black text-lg tracking-tight">Tailwind <span class="text-indigo-500">vs</span> 普通のCSS</p>
+    <span class="text-xs font-bold text-slate-400 tracking-widest uppercase">Learning Note</span>
+  </header>
+
+  <!-- ── ヒーロー ────────────────────────────────────────── -->
+  <section class="bg-slate-900 text-white px-6 py-20 text-center">
+    <p class="text-indigo-400 text-xs font-bold tracking-widest uppercase mb-4">Tailwind CSS</p>
+    <h1 class="text-4xl md:text-6xl font-black tracking-tight mb-6 leading-tight">
+      CSS を<br class="md:hidden"> <span class="text-indigo-400">クラス名で書く</span><br>という考え方
+    </h1>
+    <p class="text-slate-400 max-w-xl mx-auto text-base leading-relaxed mb-10">
+      Tailwind は CSS ファイルを書かず、HTML のクラス属性に直接スタイルを書くフレームワークです。<br>
+      普通の CSS との違いを実例で比べてみましょう。
+    </p>
+
+    <!-- 3つのポイント -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-3xl mx-auto text-left">
+      <div class="bg-slate-800 rounded-2xl p-5">
+        <p class="text-indigo-400 font-black text-2xl mb-2">01</p>
+        <p class="font-bold mb-1">CSSファイル不要</p>
+        <p class="text-slate-400 text-sm">HTML だけで完結。.css ファイルを別途作る必要がない。</p>
+      </div>
+      <div class="bg-slate-800 rounded-2xl p-5">
+        <p class="text-indigo-400 font-black text-2xl mb-2">02</p>
+        <p class="font-bold mb-1">クラス名を考えなくていい</p>
+        <p class="text-slate-400 text-sm">.card-wrapper-inner… みたいな名前を悩む必要がない。</p>
+      </div>
+      <div class="bg-slate-800 rounded-2xl p-5">
+        <p class="text-indigo-400 font-black text-2xl mb-2">03</p>
+        <p class="font-bold mb-1">レスポンシブが簡単</p>
+        <p class="text-slate-400 text-sm">sm: md: lg: をクラスに書くだけで画面サイズ対応できる。</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── SECTION 1: 一番の違い ───────────────────────────── -->
+  <section class="max-w-4xl mx-auto px-6 py-16">
+    <div class="flex items-center gap-3 mb-2">
+      <span class="bg-indigo-100 text-indigo-700 text-xs font-black px-3 py-1 rounded-full tracking-widest">CONCEPT</span>
+    </div>
+    <h2 class="text-3xl font-black tracking-tight mb-8">一番の違い：どこにスタイルを書くか</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+      <!-- 普通のCSS -->
+      <div class="rounded-2xl overflow-hidden border border-slate-200">
+        <div class="bg-amber-50 border-b border-amber-200 px-5 py-3 flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+          <span class="text-xs font-black text-amber-700 tracking-widest">普通のCSS</span>
+        </div>
+        <pre class="bg-slate-900 text-amber-300 text-sm p-5 overflow-x-auto leading-relaxed"><code>/* style.css */
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+.card-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e293b;
+}</code></pre>
+        <pre class="bg-slate-800 text-slate-300 text-sm p-5 overflow-x-auto leading-relaxed border-t border-slate-700"><code>&lt;!-- index.html --&gt;
+&lt;link rel="stylesheet" href="style.css"&gt;
+
+&lt;div class="card"&gt;
+  &lt;h2 class="card-title"&gt;タイトル&lt;/h2&gt;
+&lt;/div&gt;</code></pre>
+        <div class="bg-amber-50 px-5 py-3 text-xs text-amber-700 font-semibold">
+          📄 2ファイル必要（HTML + CSS）
+        </div>
+      </div>
+
+      <!-- Tailwind -->
+      <div class="rounded-2xl overflow-hidden border border-slate-200">
+        <div class="bg-indigo-50 border-b border-indigo-200 px-5 py-3 flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-indigo-500"></span>
+          <span class="text-xs font-black text-indigo-700 tracking-widest">Tailwind CSS</span>
+        </div>
+        <pre class="bg-slate-900 text-sky-300 text-sm p-5 overflow-x-auto leading-relaxed"><code>&lt;!-- index.html だけでOK --&gt;
+&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;
+
+&lt;div class="bg-white rounded-2xl p-6
+            shadow-lg"&gt;
+  &lt;h2 class="text-lg font-bold
+             text-slate-800"&gt;タイトル&lt;/h2&gt;
+&lt;/div&gt;</code></pre>
+        <div class="bg-slate-800 text-slate-500 text-sm p-5 border-t border-slate-700 italic">
+          ※ CSSファイルは書かない
+        </div>
+        <div class="bg-indigo-50 px-5 py-3 text-xs text-indigo-700 font-semibold">
+          ✅ 1ファイルだけ（HTML のみ）
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ── SECTION 2: ボタン比較 ────────────────────────────── -->
+  <section class="bg-white border-y border-slate-200">
+    <div class="max-w-4xl mx-auto px-6 py-16">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="bg-indigo-100 text-indigo-700 text-xs font-black px-3 py-1 rounded-full tracking-widest">BUTTON</span>
+      </div>
+      <h2 class="text-3xl font-black tracking-tight mb-8">ボタンを作る</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+
+        <!-- CSS側コード -->
+        <div class="rounded-2xl overflow-hidden border border-slate-200">
+          <div class="bg-amber-50 border-b border-amber-200 px-5 py-3">
+            <span class="text-xs font-black text-amber-700 tracking-widest">普通のCSS</span>
+          </div>
+          <pre class="bg-slate-900 text-amber-300 text-sm p-5 leading-relaxed overflow-x-auto"><code>.btn {
+  background: #6366f1;
+  color: white;
+  font-weight: 700;
+  padding: 12px 28px;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.25s;
+}
+.btn:hover {
+  background: #4338ca;
+}</code></pre>
+        </div>
+
+        <!-- Tailwind側コード -->
+        <div class="rounded-2xl overflow-hidden border border-slate-200">
+          <div class="bg-indigo-50 border-b border-indigo-200 px-5 py-3">
+            <span class="text-xs font-black text-indigo-700 tracking-widest">Tailwind CSS</span>
+          </div>
+          <pre class="bg-slate-900 text-sky-300 text-sm p-5 leading-relaxed overflow-x-auto"><code>class="
+  bg-indigo-500
+  text-white
+  font-bold
+  py-3
+  px-7
+  rounded-full
+  border-none
+  cursor-pointer
+  transition-colors
+  hover:bg-indigo-700
+"</code></pre>
+        </div>
+      </div>
+
+      <!-- ライブプレビュー -->
+      <div class="bg-slate-100 rounded-2xl p-8 flex flex-col sm:flex-row items-center justify-center gap-8">
+        <div class="text-center">
+          <p class="text-xs font-bold text-amber-600 mb-3 tracking-widest">普通のCSS</p>
+          <button class="plain-btn">Click Me</button>
+        </div>
+        <div class="text-slate-300 font-bold text-xl hidden sm:block">=</div>
+        <div class="text-center">
+          <p class="text-xs font-bold text-indigo-600 mb-3 tracking-widest">Tailwind</p>
+          <button class="bg-indigo-500 text-white font-bold py-3 px-7 rounded-full transition-colors hover:bg-indigo-700">
+            Click Me
+          </button>
+        </div>
+        <div class="text-xs text-slate-400 text-center sm:text-left max-w-xs">
+          👆 どちらも同じ見た目。<br>ホバーしてみると色が変わります。
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── SECTION 3: カード比較 ────────────────────────────── -->
+  <section class="max-w-4xl mx-auto px-6 py-16">
+    <div class="flex items-center gap-3 mb-2">
+      <span class="bg-indigo-100 text-indigo-700 text-xs font-black px-3 py-1 rounded-full tracking-widest">CARD</span>
+    </div>
+    <h2 class="text-3xl font-black tracking-tight mb-8">カードを作る</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <div class="rounded-2xl overflow-hidden border border-slate-200">
+        <div class="bg-amber-50 border-b border-amber-200 px-5 py-3">
+          <span class="text-xs font-black text-amber-700 tracking-widest">普通のCSS</span>
+        </div>
+        <pre class="bg-slate-900 text-amber-300 text-sm p-5 leading-relaxed overflow-x-auto"><code>.card { background:#fff; border-radius:16px;
+         padding:24px; box-shadow:... }
+.card-badge { background:#ede9fe;
+              color:#6d28d9; ... }
+.card-title { font-size:17px;
+              font-weight:700; ... }
+.card-text  { color:#64748b;
+              line-height:1.7; }</code></pre>
+      </div>
+      <div class="rounded-2xl overflow-hidden border border-slate-200">
+        <div class="bg-indigo-50 border-b border-indigo-200 px-5 py-3">
+          <span class="text-xs font-black text-indigo-700 tracking-widest">Tailwind CSS</span>
+        </div>
+        <pre class="bg-slate-900 text-sky-300 text-sm p-5 leading-relaxed overflow-x-auto"><code>&lt;div class="bg-white rounded-2xl p-6 shadow-lg"&gt;
+  &lt;span class="bg-violet-100 text-violet-700
+    text-xs font-bold px-3 py-1 rounded-full"&gt;
+    BADGE
+  &lt;/span&gt;
+  &lt;h3 class="font-bold text-slate-800 mt-2"&gt;
+    タイトル
+  &lt;/h3&gt;
+  &lt;p class="text-slate-500 text-sm
+             leading-relaxed mt-1"&gt;
+    テキスト
+  &lt;/p&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </div>
+
+    <!-- ライブプレビュー -->
+    <div class="bg-slate-100 rounded-2xl p-8 grid grid-cols-1 sm:grid-cols-2 gap-8">
+      <div>
+        <p class="text-xs font-bold text-amber-600 mb-3 tracking-widest">普通のCSS</p>
+        <div class="plain-card">
+          <span class="plain-card-badge">BADGE</span>
+          <p class="plain-card-title">カードのタイトル</p>
+          <p class="plain-card-text">これは普通のCSSで作ったカードです。クラス名を考えてCSSファイルに書きました。</p>
+        </div>
+      </div>
+      <div>
+        <p class="text-xs font-bold text-indigo-600 mb-3 tracking-widest">Tailwind</p>
+        <div class="bg-white rounded-2xl p-6 shadow-lg">
+          <span class="bg-violet-100 text-violet-700 text-xs font-bold px-3 py-1 rounded-full">BADGE</span>
+          <p class="font-bold text-slate-800 mt-3 mb-1">カードのタイトル</p>
+          <p class="text-slate-500 text-sm leading-relaxed">これはTailwindで作ったカードです。クラス名を考えずHTMLだけで書けました。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── SECTION 4: レスポンシブ比較 ──────────────────────── -->
+  <section class="bg-white border-y border-slate-200">
+    <div class="max-w-4xl mx-auto px-6 py-16">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="bg-green-100 text-green-700 text-xs font-black px-3 py-1 rounded-full tracking-widest">RESPONSIVE</span>
+      </div>
+      <h2 class="text-3xl font-black tracking-tight mb-3">レスポンシブ対応</h2>
+      <p class="text-slate-500 mb-8">Tailwind の一番強い機能。クラスにプレフィックスを書くだけ。</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div class="rounded-2xl overflow-hidden border border-slate-200">
+          <div class="bg-amber-50 border-b border-amber-200 px-5 py-3">
+            <span class="text-xs font-black text-amber-700 tracking-widest">普通のCSS — @media が必要</span>
+          </div>
+          <pre class="bg-slate-900 text-amber-300 text-sm p-5 leading-relaxed overflow-x-auto"><code>.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}</code></pre>
+        </div>
+        <div class="rounded-2xl overflow-hidden border border-slate-200">
+          <div class="bg-indigo-50 border-b border-indigo-200 px-5 py-3">
+            <span class="text-xs font-black text-indigo-700 tracking-widest">Tailwind — クラスだけで完結</span>
+          </div>
+          <pre class="bg-slate-900 text-sky-300 text-sm p-5 leading-relaxed overflow-x-auto"><code>&lt;div class="
+  grid
+  grid-cols-1
+  sm:grid-cols-3
+  gap-3
+"&gt;
+  ...
+&lt;/div&gt;
+
+&lt;!-- sm: = 640px 以上に適用 --&gt;
+&lt;!-- md: = 768px 以上に適用 --&gt;
+&lt;!-- lg: = 1024px 以上に適用 --&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="bg-slate-100 rounded-2xl p-6">
+        <p class="text-xs font-bold text-indigo-600 mb-4 tracking-widest">↓ 画面を縮めて試してみてください</p>
+        <!-- 普通のCSS -->
+        <p class="text-xs font-bold text-amber-600 mb-2 tracking-widest">普通のCSS</p>
+        <div class="plain-grid mb-6">
+          <div class="plain-grid-item">Item A</div>
+          <div class="plain-grid-item">Item B</div>
+          <div class="plain-grid-item">Item C</div>
+        </div>
+        <!-- Tailwind -->
+        <p class="text-xs font-bold text-indigo-600 mb-2 tracking-widest">Tailwind</p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div class="bg-indigo-50 text-indigo-700 rounded-lg p-4 text-center text-sm font-semibold">Item A</div>
+          <div class="bg-indigo-50 text-indigo-700 rounded-lg p-4 text-center text-sm font-semibold">Item B</div>
+          <div class="bg-indigo-50 text-indigo-700 rounded-lg p-4 text-center text-sm font-semibold">Item C</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── SECTION 5: ホバー / フォーカス ────────────────────── -->
+  <section class="max-w-4xl mx-auto px-6 py-16">
+    <div class="flex items-center gap-3 mb-2">
+      <span class="bg-pink-100 text-pink-700 text-xs font-black px-3 py-1 rounded-full tracking-widest">HOVER / FOCUS</span>
+    </div>
+    <h2 class="text-3xl font-black tracking-tight mb-3">ホバー・フォーカス状態</h2>
+    <p class="text-slate-500 mb-8">普通のCSS は別セレクタが必要。Tailwind は同じ要素にそのまま書ける。</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <div class="rounded-2xl overflow-hidden border border-slate-200">
+        <div class="bg-amber-50 border-b border-amber-200 px-5 py-3">
+          <span class="text-xs font-black text-amber-700 tracking-widest">普通のCSS</span>
+        </div>
+        <pre class="bg-slate-900 text-amber-300 text-sm p-5 leading-relaxed overflow-x-auto"><code>/* 別の行に書く必要がある */
+.input {
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+.input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
+  outline: none;
+}</code></pre>
+      </div>
+      <div class="rounded-2xl overflow-hidden border border-slate-200">
+        <div class="bg-indigo-50 border-b border-indigo-200 px-5 py-3">
+          <span class="text-xs font-black text-indigo-700 tracking-widest">Tailwind — 同じ要素に書ける</span>
+        </div>
+        <pre class="bg-slate-900 text-sky-300 text-sm p-5 leading-relaxed overflow-x-auto"><code>&lt;input class="
+  border-2
+  border-slate-200
+  rounded-lg
+  px-4 py-2.5
+  outline-none
+  focus:border-indigo-500
+  focus:ring-2
+  focus:ring-indigo-200
+" /&gt;</code></pre>
+      </div>
+    </div>
+
+    <div class="bg-slate-100 rounded-2xl p-8 grid grid-cols-1 sm:grid-cols-2 gap-8">
+      <div>
+        <p class="text-xs font-bold text-amber-600 mb-3 tracking-widest">普通のCSS</p>
+        <input type="text" class="plain-input" placeholder="クリックしてフォーカス">
+      </div>
+      <div>
+        <p class="text-xs font-bold text-indigo-600 mb-3 tracking-widest">Tailwind</p>
+        <input type="text"
+          class="w-full px-4 py-2.5 border-2 border-slate-200 rounded-lg outline-none
+                 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all"
+          placeholder="クリックしてフォーカス">
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── SECTION 6: まとめ表 ────────────────────────────────── -->
+  <section class="bg-slate-900 text-white px-6 py-16">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-3xl font-black tracking-tight mb-10 text-center">まとめ：どっちを使う？</h2>
+
+      <div class="overflow-x-auto rounded-2xl border border-slate-700">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-slate-700">
+              <th class="text-left p-4 text-slate-400 font-bold tracking-widest text-xs">比較項目</th>
+              <th class="p-4 text-amber-400 font-black tracking-widest text-xs text-center">普通のCSS</th>
+              <th class="p-4 text-sky-400 font-black tracking-widest text-xs text-center">Tailwind</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800">
+            <tr>
+              <td class="p-4 text-slate-300 font-semibold">ファイル数</td>
+              <td class="p-4 text-center text-slate-400">HTML + CSS（2つ）</td>
+              <td class="p-4 text-center text-sky-300 font-semibold">HTML だけ</td>
+            </tr>
+            <tr>
+              <td class="p-4 text-slate-300 font-semibold">クラス名</td>
+              <td class="p-4 text-center text-slate-400">自分で考える</td>
+              <td class="p-4 text-center text-sky-300 font-semibold">考えなくていい</td>
+            </tr>
+            <tr>
+              <td class="p-4 text-slate-300 font-semibold">レスポンシブ</td>
+              <td class="p-4 text-center text-slate-400">@media を別途書く</td>
+              <td class="p-4 text-center text-sky-300 font-semibold">sm: md: lg: だけ</td>
+            </tr>
+            <tr>
+              <td class="p-4 text-slate-300 font-semibold">ホバー・状態</td>
+              <td class="p-4 text-center text-slate-400">.class:hover を別行</td>
+              <td class="p-4 text-center text-sky-300 font-semibold">hover: を同じ行に</td>
+            </tr>
+            <tr>
+              <td class="p-4 text-slate-300 font-semibold">HTML の見た目</td>
+              <td class="p-4 text-center text-sky-300 font-semibold">スッキリ</td>
+              <td class="p-4 text-center text-slate-400">クラスが長くなる</td>
+            </tr>
+            <tr>
+              <td class="p-4 text-slate-300 font-semibold">本番ファイルサイズ</td>
+              <td class="p-4 text-center text-slate-400">書いた分だけ</td>
+              <td class="p-4 text-center text-sky-300 font-semibold">使ったクラスだけ抽出（ビルド時）</td>
+            </tr>
+            <tr>
+              <td class="p-4 text-slate-300 font-semibold">おすすめ用途</td>
+              <td class="p-4 text-center text-slate-400">小規模・学習・CSSをちゃんと学びたい</td>
+              <td class="p-4 text-center text-sky-300 font-semibold">プロトタイプ・React/Next.js との相性◎</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mt-8 bg-indigo-900 border border-indigo-700 rounded-2xl p-6">
+        <p class="font-black text-indigo-300 text-sm mb-2">💡 結論</p>
+        <p class="text-slate-300 leading-relaxed text-sm">
+          どちらが「正解」というわけではありません。<strong class="text-white">CSS の基礎を理解した上で Tailwind を使う</strong>のが理想的。
+          まず普通のCSSで <code class="bg-slate-800 px-1.5 py-0.5 rounded text-sky-300">display: flex</code> や
+          <code class="bg-slate-800 px-1.5 py-0.5 rounded text-sky-300">padding</code> を理解すると、
+          Tailwind のクラス名の意味がすぐわかるようになります。
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── フッター ────────────────────────────────────────── -->
+  <footer class="bg-slate-950 text-slate-600 text-xs text-center py-6 tracking-widest">
+    Tailwind vs 普通のCSS — Learning Note 2026
+  </footer>
+
+</body>
+</html>

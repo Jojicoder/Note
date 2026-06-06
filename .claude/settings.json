@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:mememe-official.jp)",
+      "WebFetch(domain:109ichiki.com)"
+    ]
+  }
+}

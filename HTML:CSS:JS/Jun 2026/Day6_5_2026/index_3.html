@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Montblanc Style Sample</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+      background: #ffffff;
+      color: #222;
+      line-height: 1.7;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      width: 100%;
+      display: block;
+    }
+
+    .page {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    /* Header */
+    .header {
+      height: 92px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
+      font-size: 20px;
+      letter-spacing: 0.02em;
+    }
+
+    .logo-mark {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: #ffd84d;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      border: 3px solid #222;
+    }
+
+    .nav {
+      display: flex;
+      gap: 26px;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .nav a {
+      position: relative;
+    }
+
+    .nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 0;
+      height: 3px;
+      background: #ffd84d;
+      border-radius: 999px;
+      transition: 0.25s;
+    }
+
+    .nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 34px 0 80px;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .hero-copy {
+      position: relative;
+    }
+
+    .hero-label {
+      display: inline-block;
+      background: #e9f5ff;
+      border: 2px solid #222;
+      border-radius: 999px;
+      padding: 8px 18px;
+      font-size: 13px;
+      font-weight: 900;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      font-size: clamp(46px, 8vw, 92px);
+      line-height: 1.02;
+      letter-spacing: -0.06em;
+      font-weight: 900;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 span {
+      display: inline-block;
+      background: linear-gradient(transparent 62%, #ffd84d 62%);
+    }
+
+    .hero p {
+      max-width: 560px;
+      font-size: 17px;
+      font-weight: 700;
+    }
+
+    .hero-visual {
+      position: relative;
+      border-radius: 34px;
+      overflow: hidden;
+      border: 3px solid #222;
+      box-shadow: 12px 12px 0 #ffd84d;
+      background: #f4f4f4;
+    }
+
+    .hero-visual img {
+      height: 480px;
+      object-fit: cover;
+    }
+
+    .sticker {
+      position: absolute;
+      right: 22px;
+      bottom: 22px;
+      background: #ff7aa2;
+      color: white;
+      border: 3px solid #222;
+      border-radius: 999px;
+      padding: 16px 22px;
+      font-weight: 900;
+      transform: rotate(-6deg);
+    }
+
+    /* Common Section */
+    .section {
+      padding: 80px 0;
+      border-top: 3px solid #222;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 24px;
+      margin-bottom: 34px;
+    }
+
+    .section-title {
+      font-size: clamp(38px, 6vw, 72px);
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: -0.06em;
+    }
+
+    .section-title small {
+      display: block;
+      font-size: 15px;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+    }
+
+    .view-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #222;
+      color: white;
+      border-radius: 999px;
+      padding: 12px 20px;
+      font-weight: 900;
+      font-size: 13px;
+    }
+
+    /* Works */
+    .works-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .work-card {
+      border: 3px solid #222;
+      border-radius: 28px;
+      overflow: hidden;
+      background: white;
+      transition: 0.25s;
+    }
+
+    .work-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 8px 8px 0 #222;
+    }
+
+    .work-image {
+      height: 230px;
+      object-fit: cover;
+      border-bottom: 3px solid #222;
+    }
+
+    .work-body {
+      padding: 20px;
+    }
+
+    .work-title {
+      font-size: 21px;
+      line-height: 1.35;
+      font-weight: 900;
+      margin-bottom: 14px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      font-size: 11px;
+      font-weight: 900;
+      border: 2px solid #222;
+      border-radius: 999px;
+      padding: 5px 10px;
+      background: #f5f5f5;
+    }
+
+    .tag.yellow {
+      background: #ffd84d;
+    }
+
+    .tag.blue {
+      background: #bfe7ff;
+    }
+
+    .tag.pink {
+      background: #ffc2d4;
+    }
+
+    /* Journal */
+    .journal-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .journal-item {
+      display: grid;
+      grid-template-columns: 130px 1fr 120px;
+      gap: 20px;
+      align-items: center;
+      border: 3px solid #222;
+      border-radius: 22px;
+      padding: 20px;
+      background: #fff;
+      transition: 0.25s;
+    }
+
+    .journal-item:hover {
+      background: #fff7cf;
+      transform: translateX(6px);
+    }
+
+    .date {
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .journal-title {
+      font-size: 22px;
+      font-weight: 900;
+    }
+
+    .category {
+      justify-self: end;
+      background: #e9f5ff;
+      border: 2px solid #222;
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    /* Recruit */
+    .recruit-box {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 26px;
+      align-items: stretch;
+    }
+
+    .recruit-card {
+      border: 3px solid #222;
+      border-radius: 30px;
+      padding: 32px;
+      background: #ffd84d;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .recruit-card h3 {
+      font-size: 42px;
+      line-height: 1.05;
+      letter-spacing: -0.05em;
+      font-weight: 900;
+      margin-bottom: 18px;
+    }
+
+    .job-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .job-list span {
+      display: inline-block;
+      background: white;
+      border: 2px solid #222;
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-weight: 900;
+      width: fit-content;
+    }
+
+    .podcast-card {
+      border: 3px solid #222;
+      border-radius: 30px;
+      padding: 32px;
+      background: #e9f5ff;
+    }
+
+    .podcast-card h3 {
+      font-size: 34px;
+      font-weight: 900;
+      margin-bottom: 16px;
+    }
+
+    /* About */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .member {
+      border: 3px solid #222;
+      border-radius: 24px;
+      overflow: hidden;
+      background: white;
+    }
+
+    .member img {
+      height: 210px;
+      object-fit: cover;
+      filter: grayscale(10%);
+    }
+
+    .member-body {
+      padding: 14px;
+      font-weight: 900;
+    }
+
+    .member-body small {
+      display: block;
+      color: #777;
+      font-weight: 800;
+    }
+
+    /* Contact */
+    .contact {
+      margin: 80px 0;
+      padding: 70px 28px;
+      text-align: center;
+      background: #222;
+      color: white;
+      border-radius: 36px;
+    }
+
+    .contact h2 {
+      font-size: clamp(44px, 8vw, 96px);
+      line-height: 1;
+      letter-spacing: -0.06em;
+      margin-bottom: 20px;
+    }
+
+    .contact p {
+      font-weight: 800;
+      margin-bottom: 26px;
+    }
+
+    .contact a {
+      display: inline-flex;
+      background: #ffd84d;
+      color: #222;
+      border: 3px solid white;
+      border-radius: 999px;
+      padding: 14px 24px;
+      font-weight: 900;
+    }
+
+    .footer {
+      padding: 34px 0;
+      border-top: 3px solid #222;
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    /* Animation */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: 0.7s ease;
+    }
+
+    .fade-up.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 900px) {
+      .nav {
+        display: none;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-visual img {
+        height: 340px;
+      }
+
+      .works-grid,
+      .recruit-box,
+      .team-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head {
+        display: block;
+      }
+
+      .view-more {
+        margin-top: 20px;
+      }
+
+      .journal-item {
+        grid-template-columns: 1fr;
+      }
+
+      .category {
+        justify-self: start;
+      }
+
+      .footer {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+
+    <header class="header">
+      <a href="#" class="logo">
+        <span class="logo-mark">M</span>
+        <span>Mont Sample</span>
+      </a>
+
+      <nav class="nav">
+        <a href="#works">Works</a>
+        <a href="#made">Made</a>
+        <a href="#journal">Journal</a>
+        <a href="#recruit">Recruit</a>
+        <a href="#about">About us</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy fade-up">
+          <p class="hero-label">Animation / Movie / Web Contents</p>
+          <h1>
+            映像で、<br>
+            <span>想像を</span><br>
+            楽しくする。
+          </h1>
+          <p>
+            アニメーション、CM、展示映像、モーショングラフィックスなど、
+            アイデアを楽しく形にするクリエイティブスタジオのサンプルサイトです。
+          </p>
+        </div>
+
+        <div class="hero-visual fade-up">
+          <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=1000&q=80" alt="">
+          <div class="sticker">New<br>Works!</div>
+        </div>
+      </section>
+
+      <section class="section" id="works">
+        <div class="section-head fade-up">
+          <h2 class="section-title">
+            <small>Our Works</small>
+            Works
+          </h2>
+          <a href="#" class="view-more">View More →</a>
+        </div>
+
+        <div class="works-grid">
+          <article class="work-card fade-up">
+            <img class="work-image" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=900&q=80" alt="">
+            <div class="work-body">
+              <h3 class="work-title">キャラクターアニメーション CM</h3>
+              <div class="tags">
+                <span class="tag yellow">Animation</span>
+                <span class="tag blue">CM</span>
+                <span class="tag">Motion Graphics</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="work-card fade-up">
+            <img class="work-image" src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=900&q=80" alt="">
+            <div class="work-body">
+              <h3 class="work-title">ミュージアム展示コンテンツ</h3>
+              <div class="tags">
+                <span class="tag pink">Exhibition</span>
+                <span class="tag blue">Interactive</span>
+                <span class="tag">Installation</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="work-card fade-up">
+            <img class="work-image" src="https://images.unsplash.com/photo-1604871000636-074fa5117945?auto=format&fit=crop&w=900&q=80" alt="">
+            <div class="work-body">
+              <h3 class="work-title">ブランドムービー制作</h3>
+              <div class="tags">
+                <span class="tag yellow">Movie</span>
+                <span class="tag">Direction</span>
+                <span class="tag blue">Branding</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="journal">
+        <div class="section-head fade-up">
+          <h2 class="section-title">
+            <small>Fresh Journal</small>
+            Journal
+          </h2>
+          <a href="#" class="view-more">View More →</a>
+        </div>
+
+        <div class="journal-list">
+          <a href="#" class="journal-item fade-up">
+            <p class="date">2026.06.05</p>
+            <h3 class="journal-title">webサイトをリニューアルしました！</h3>
+            <span class="category">Info</span>
+          </a>
+
+          <a href="#" class="journal-item fade-up">
+            <p class="date">2026.05.20</p>
+            <h3 class="journal-title">アイデアを形にする制作レポート</h3>
+            <span class="category">Report</span>
+          </a>
+
+          <a href="#" class="journal-item fade-up">
+            <p class="date">2026.05.01</p>
+            <h3 class="journal-title">スタジオメンバーインタビュー</h3>
+            <span class="category">Staff</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="section" id="recruit">
+        <div class="section-head fade-up">
+          <h2 class="section-title">
+            <small>Recruit</small>
+            Recruit
+          </h2>
+          <a href="#" class="view-more">View More →</a>
+        </div>
+
+        <div class="recruit-box">
+          <div class="recruit-card fade-up">
+            <h3>求人募集!</h3>
+            <p>新卒/キャリア採用。映像、デザイン、プログラムに関わるメンバーを募集しています。</p>
+
+            <div class="job-list">
+              <span>CGジェネラリスト</span>
+              <span>ディレクター</span>
+              <span>プログラマー</span>
+              <span>グラフィックデザイナー</span>
+            </div>
+          </div>
+
+          <div class="podcast-card fade-up">
+            <h3>Podcast / Instagram LIVE</h3>
+            <p>
+              会社の雰囲気や制作の裏側を発信中。リクルート情報やスタッフの声を届けます。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="about">
+        <div class="section-head fade-up">
+          <h2 class="section-title">
+            <small>About us</small>
+            Team
+          </h2>
+          <a href="#" class="view-more">View More →</a>
+        </div>
+
+        <div class="team-grid">
+          <div class="member fade-up">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80" alt="">
+            <div class="member-body">
+              竹野 智史
+              <small>Director</small>
+            </div>
+          </div>
+
+          <div class="member fade-up">
+            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=600&q=80" alt="">
+            <div class="member-body">
+              江藤 浩輝
+              <small>Producer</small>
+            </div>
+          </div>
+
+          <div class="member fade-up">
+            <img src="https://images.unsplash.com/photo-1499996860823-5214fcc65f8f?auto=format&fit=crop&w=600&q=80" alt="">
+            <div class="member-body">
+              足達 太朗
+              <small>Designer</small>
+            </div>
+          </div>
+
+          <div class="member fade-up">
+            <img src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=600&q=80" alt="">
+            <div class="member-body">
+              山代 竜也
+              <small>Engineer</small>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="contact fade-up" id="contact">
+        <h2>Contact</h2>
+        <p>制作の相談、採用、プロジェクトの問い合わせはこちら。</p>
+        <a href="mailto:hello@example.com">お問い合わせする →</a>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>© 2026 Mont Sample</p>
+      <p>Instagram / Facebook / X / Vimeo</p>
+    </footer>
+
+  </div>
+
+  <script>
+    const fadeElements = document.querySelectorAll(".fade-up");
+
+    const observer = new IntersectionObserver(
+      function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+          }
+        });
+      },
+      {
+        threshold: 0.15
+      }
+    );
+
+    fadeElements.forEach(function(element) {
+      observer.observe(element);
+    });
+  </script>
+</body>
+</html>

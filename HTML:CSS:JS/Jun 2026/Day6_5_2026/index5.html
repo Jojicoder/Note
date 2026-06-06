@@ -1,0 +1,2309 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>PLAY ME - Hair Care LP Sample</title>
+
+  <style>
+    /* =========================
+       Reset / Base
+    ========================= */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+      background: #fff;
+      color: #282828;
+      overflow-x: hidden;
+    }
+
+    body.modal-open,
+    body.menu-open {
+      overflow: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+    }
+
+    button {
+      font-family: inherit;
+    }
+
+    .container {
+      width: min(1120px, calc(100% - 36px));
+      margin: 0 auto;
+    }
+
+    /* =========================
+       Loading
+    ========================= */
+    .loader {
+      position: fixed;
+      inset: 0;
+      z-index: 20000;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 20% 20%, #ffe45c 0 11%, transparent 11.5%),
+        radial-gradient(circle at 82% 78%, #b9efff 0 14%, transparent 14.5%),
+        #fff8fb;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+
+    .loader.hide {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loader-logo {
+      font-size: clamp(54px, 10vw, 110px);
+      line-height: 0.82;
+      letter-spacing: -0.12em;
+      font-weight: 900;
+      color: #ff4b9b;
+      text-align: center;
+      text-shadow:
+        4px 4px 0 #fff,
+        8px 8px 0 #ffe45c;
+      animation: loader-pop 1s ease infinite alternate;
+    }
+
+    .loader-bar {
+      position: absolute;
+      left: 50%;
+      bottom: 14%;
+      width: min(280px, 70vw);
+      height: 12px;
+      transform: translateX(-50%);
+      border-radius: 999px;
+      overflow: hidden;
+      background: #fff;
+      border: 2px solid #ff9ac8;
+    }
+
+    .loader-bar span {
+      display: block;
+      width: 45%;
+      height: 100%;
+      border-radius: 999px;
+      background: #ff4b9b;
+      animation: loader-bar 1s ease-in-out infinite;
+    }
+
+    @keyframes loader-pop {
+      from {
+        transform: translateY(0) rotate(-2deg);
+      }
+      to {
+        transform: translateY(-12px) rotate(2deg);
+      }
+    }
+
+    @keyframes loader-bar {
+      0% {
+        transform: translateX(-110%);
+      }
+      100% {
+        transform: translateX(240%);
+      }
+    }
+
+    /* =========================
+       Scroll Progress
+    ========================= */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 15000;
+      width: 0%;
+      height: 5px;
+      background: linear-gradient(90deg, #ff4b9b, #ffe45c, #37bce8);
+      border-radius: 0 999px 999px 0;
+    }
+
+    /* =========================
+       Header
+    ========================= */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      width: 100%;
+      padding: 20px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      pointer-events: none;
+    }
+
+    .logo {
+      pointer-events: auto;
+      font-size: 34px;
+      line-height: 0.85;
+      font-weight: 900;
+      letter-spacing: -0.08em;
+      color: #ff4b9b;
+      text-shadow:
+        2px 2px 0 #fff,
+        4px 4px 0 #ffe45c;
+      position: relative;
+      z-index: 1002;
+    }
+
+    .nav {
+      pointer-events: auto;
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.82);
+      border: 2px solid #ff9ac8;
+      border-radius: 999px;
+      padding: 12px 18px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 24px rgba(255, 75, 155, 0.16);
+    }
+
+    .nav a {
+      font-size: 12px;
+      font-weight: 900;
+      color: #ff4b9b;
+      transition: 0.25s ease;
+    }
+
+    .nav a:hover {
+      transform: translateY(-2px);
+    }
+
+    .nav .shop-link {
+      background: #ff4b9b;
+      color: #fff;
+      padding: 8px 13px;
+      border-radius: 999px;
+    }
+
+    .menu-button {
+      display: none;
+      pointer-events: auto;
+      width: 52px;
+      height: 52px;
+      border: 2px solid #ff9ac8;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.9);
+      place-items: center;
+      gap: 4px;
+      padding: 14px;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(255, 75, 155, 0.16);
+      position: relative;
+      z-index: 1002;
+    }
+
+    .menu-button span {
+      display: block;
+      width: 21px;
+      height: 3px;
+      border-radius: 999px;
+      background: #ff4b9b;
+      transition: 0.25s ease;
+    }
+
+    body.menu-open .menu-button span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    body.menu-open .menu-button span:nth-child(2) {
+      opacity: 0;
+    }
+
+    body.menu-open .menu-button span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* =========================
+       Hero
+    ========================= */
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 8% 20%, #ffe45c 0 9%, transparent 9.4%),
+        radial-gradient(circle at 91% 12%, #b9efff 0 13%, transparent 13.4%),
+        radial-gradient(circle at 18% 88%, #ffc2dd 0 15%, transparent 15.4%),
+        linear-gradient(180deg, #fff8fb 0%, #ffe8f3 100%);
+      padding-top: 96px;
+    }
+
+    .hero-bg-text {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(110px, 21vw, 290px);
+      line-height: 0.72;
+      font-weight: 900;
+      letter-spacing: -0.14em;
+      text-align: center;
+      color: rgba(255, 75, 155, 0.12);
+      pointer-events: none;
+      transform: rotate(-6deg);
+      will-change: transform;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      min-height: calc(100vh - 96px);
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 34px;
+      align-items: center;
+      padding: 70px 0 80px;
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 5;
+    }
+
+    .label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+      border: 2px solid #ff9ac8;
+      color: #ff4b9b;
+      border-radius: 999px;
+      padding: 9px 16px;
+      font-size: 12px;
+      font-weight: 900;
+      box-shadow: 6px 6px 0 #ffe45c;
+      margin-bottom: 20px;
+    }
+
+    .label::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ff4b9b;
+    }
+
+    .hero-title {
+      font-size: clamp(64px, 12vw, 150px);
+      line-height: 0.82;
+      letter-spacing: -0.12em;
+      font-weight: 900;
+      color: #ff4b9b;
+      text-shadow:
+        4px 4px 0 #fff,
+        8px 8px 0 #ffe45c;
+      margin-bottom: 28px;
+    }
+
+    .hero-title span {
+      display: block;
+    }
+
+    .hero-message {
+      max-width: 470px;
+      font-size: 18px;
+      line-height: 2;
+      font-weight: 900;
+      color: #4b2b3b;
+    }
+
+    .hero-buttons {
+      margin-top: 32px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 54px;
+      padding: 0 24px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 900;
+      transition: 0.25s ease;
+      position: relative;
+      overflow: hidden;
+      border: 0;
+      cursor: pointer;
+    }
+
+    .btn.primary {
+      background: #ff4b9b;
+      color: #fff;
+      box-shadow: 0 7px 0 #ffb8d6;
+    }
+
+    .btn.secondary {
+      background: #fff;
+      color: #ff4b9b;
+      border: 2px solid #ff9ac8;
+      box-shadow: 0 7px 0 #ffe45c;
+    }
+
+    .btn:hover {
+      transform: translateY(-5px);
+    }
+
+    .visual-area {
+      position: relative;
+      min-height: 680px;
+    }
+
+    .main-visual {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: min(510px, 90%);
+      height: 620px;
+      transform: translate(-50%, -50%) rotate(-2deg);
+      border-radius: 54px;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,170,211,0.28)),
+        url("https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=1200&q=80");
+      background-size: cover;
+      background-position: center;
+      box-shadow:
+        0 30px 90px rgba(255, 75, 155, 0.28),
+        18px 18px 0 #ff9ac8;
+      will-change: transform;
+    }
+
+    .product-cut {
+      position: absolute;
+      width: 210px;
+      border-radius: 34px;
+      background: rgba(255,255,255,0.88);
+      border: 4px solid #fff;
+      box-shadow: 0 20px 60px rgba(255,75,155,0.22);
+      padding: 16px;
+      animation: floating 5.8s ease-in-out infinite;
+    }
+
+    .product-cut.left {
+      left: 0;
+      top: 60px;
+      transform: rotate(-8deg);
+      transition: transform 0.4s ease;
+    }
+
+    .product-cut.right {
+      right: 0;
+      bottom: 78px;
+      transform: rotate(8deg);
+      animation-delay: 1.2s;
+      transition: transform 0.4s ease;
+    }
+
+    .product-cut.left:hover {
+      transform: rotate(-14deg) scale(1.07);
+    }
+
+    .product-cut.right:hover {
+      transform: rotate(14deg) scale(1.07);
+    }
+
+    .fake-bottle {
+      height: 260px;
+      border-radius: 30px;
+      background:
+        linear-gradient(180deg, #ff75b3 0%, #ffc2dd 58%, #fff 100%);
+      position: relative;
+      overflow: hidden;
+      border: 3px solid #ff4b9b;
+    }
+
+    .fake-bottle.blue {
+      background:
+        linear-gradient(180deg, #68d8ff 0%, #b9efff 58%, #fff 100%);
+      border-color: #37bce8;
+    }
+
+    .fake-bottle::before {
+      content: "";
+      position: absolute;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 70px;
+      height: 34px;
+      border-radius: 12px 12px 5px 5px;
+      background: #fff;
+    }
+
+    .fake-bottle::after {
+      content: "ME";
+      position: absolute;
+      left: 50%;
+      top: 95px;
+      transform: translateX(-50%);
+      font-size: 52px;
+      line-height: 0.85;
+      letter-spacing: -0.12em;
+      font-weight: 900;
+      color: #fff;
+      text-shadow: 3px 3px 0 rgba(255,75,155,0.35);
+    }
+
+    .product-cut p {
+      margin-top: 12px;
+      color: #ff4b9b;
+      font-weight: 900;
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    .sticker {
+      position: absolute;
+      z-index: 10;
+      border-radius: 999px;
+      background: #fff;
+      border: 3px solid #ff9ac8;
+      color: #ff4b9b;
+      font-weight: 900;
+      text-align: center;
+      box-shadow: 8px 8px 0 #ffe45c;
+      animation: floating 6s ease-in-out infinite;
+    }
+
+    .sticker.one {
+      right: 70px;
+      top: 34px;
+      padding: 21px 23px;
+      transform: rotate(12deg);
+    }
+
+    .sticker.two {
+      left: 100px;
+      bottom: 38px;
+      padding: 18px 22px;
+      transform: rotate(-10deg);
+      background: #ff4b9b;
+      color: #fff;
+      border-color: #fff;
+      animation-delay: 1.5s;
+    }
+
+    @keyframes floating {
+      0%, 100% {
+        translate: 0 0;
+      }
+      50% {
+        translate: 0 -18px;
+      }
+    }
+
+    /* =========================
+       Ticker
+    ========================= */
+    .ticker {
+      overflow: hidden;
+      background: #ff4b9b;
+      padding: 14px 0;
+      white-space: nowrap;
+    }
+
+    .ticker-rev {
+      background: #ffe45c;
+    }
+
+    .ticker-inner {
+      display: inline-flex;
+      animation: ticker-fwd 22s linear infinite;
+    }
+
+    .ticker-rev .ticker-inner {
+      animation-direction: reverse;
+    }
+
+    .ticker-item {
+      display: inline-block;
+      padding: 0 30px;
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+      color: #fff;
+    }
+
+    .ticker-rev .ticker-item {
+      color: #ff4b9b;
+    }
+
+    @keyframes ticker-fwd {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    /* =========================
+       Common Section
+    ========================= */
+    .section {
+      position: relative;
+      padding: 110px 0;
+      overflow: hidden;
+    }
+
+    .section-head {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+
+    .section-title {
+      font-size: clamp(56px, 10vw, 135px);
+      line-height: 0.82;
+      letter-spacing: -0.12em;
+      font-weight: 900;
+      color: #ff4b9b;
+      text-shadow:
+        3px 3px 0 #fff,
+        6px 6px 0 #ffe45c;
+    }
+
+    .section-title small {
+      display: block;
+      margin-bottom: 16px;
+      font-size: 14px;
+      letter-spacing: 0.16em;
+      line-height: 1;
+      color: #4b2b3b;
+      text-shadow: none;
+    }
+
+    .section-copy {
+      max-width: 720px;
+      margin: 28px auto 0;
+      font-size: 17px;
+      line-height: 2.1;
+      font-weight: 900;
+      color: #4b2b3b;
+    }
+
+    .marker {
+      background: linear-gradient(transparent 55%, rgba(255, 228, 92, 0.82) 55%);
+      display: inline;
+    }
+
+    .marker-pink {
+      background: linear-gradient(transparent 55%, rgba(255, 154, 200, 0.62) 55%);
+      display: inline;
+    }
+
+    /* =========================
+       Concept
+    ========================= */
+    .concept {
+      background:
+        radial-gradient(circle at 12% 22%, rgba(255,228,92,0.75) 0 9%, transparent 9.5%),
+        radial-gradient(circle at 88% 76%, rgba(185,239,255,0.8) 0 12%, transparent 12.5%),
+        #fff;
+    }
+
+    .concept-layout {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 42px;
+      align-items: center;
+    }
+
+    .concept-image {
+      position: relative;
+      min-height: 640px;
+      border-radius: 58px;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(255,75,155,0.02), rgba(255,75,155,0.18)),
+        url("https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=1200&q=80");
+      background-size: cover;
+      background-position: center;
+      box-shadow: 16px 16px 0 #b9efff;
+      transform: rotate(1deg);
+      will-change: transform;
+    }
+
+    .concept-card {
+      position: relative;
+      background: #fff8fb;
+      border: 3px solid #ff9ac8;
+      border-radius: 48px;
+      padding: 46px;
+      box-shadow: 12px 12px 0 #ffe45c;
+    }
+
+    .concept-card::before {
+      content: "PLAY! ME";
+      position: absolute;
+      right: 30px;
+      top: -32px;
+      background: #ff4b9b;
+      color: #fff;
+      border-radius: 999px;
+      padding: 16px 22px;
+      font-size: 14px;
+      font-weight: 900;
+      transform: rotate(8deg);
+    }
+
+    .concept-card h2 {
+      font-size: clamp(36px, 5vw, 70px);
+      line-height: 1.08;
+      letter-spacing: -0.08em;
+      color: #ff4b9b;
+      font-weight: 900;
+      margin-bottom: 28px;
+    }
+
+    .concept-card p {
+      font-size: 17px;
+      line-height: 2.15;
+      font-weight: 900;
+      color: #4b2b3b;
+    }
+
+    /* =========================
+       Lineup
+    ========================= */
+    .lineup {
+      background:
+        linear-gradient(180deg, #ffe8f3 0%, #fff 100%);
+    }
+
+    .lineup-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+    }
+
+    .lineup-panel {
+      position: relative;
+      min-height: 620px;
+      border-radius: 58px;
+      padding: 44px;
+      overflow: hidden;
+      background: #ffd8e9;
+      box-shadow: 0 26px 80px rgba(255,75,155,0.18);
+      transition: transform 0.32s ease, box-shadow 0.32s ease;
+      cursor: pointer;
+    }
+
+    .lineup-panel:hover {
+      transform: translateY(-14px) scale(1.025);
+      box-shadow: 0 54px 120px rgba(255, 75, 155, 0.32);
+    }
+
+    .lineup-panel.smooth {
+      background: #dff7ff;
+    }
+
+    .lineup-panel.smooth:hover {
+      box-shadow: 0 54px 120px rgba(55, 188, 232, 0.32);
+    }
+
+    .lineup-panel::before {
+      content: "";
+      position: absolute;
+      inset: 24px;
+      border: 3px solid rgba(255,255,255,0.8);
+      border-radius: 42px;
+      pointer-events: none;
+    }
+
+    .lineup-panel h3 {
+      position: relative;
+      z-index: 2;
+      font-size: clamp(48px, 7vw, 90px);
+      line-height: 0.85;
+      letter-spacing: -0.1em;
+      font-weight: 900;
+      color: #fff;
+      text-shadow: 5px 5px 0 rgba(255,75,155,0.35);
+      margin-bottom: 20px;
+    }
+
+    .lineup-panel.smooth h3 {
+      text-shadow: 5px 5px 0 rgba(55,188,232,0.35);
+    }
+
+    .lineup-panel p {
+      position: relative;
+      z-index: 2;
+      max-width: 360px;
+      font-size: 16px;
+      line-height: 2;
+      font-weight: 900;
+      color: #4b2b3b;
+    }
+
+    .lineup-product {
+      position: absolute;
+      left: 50%;
+      bottom: 42px;
+      width: 280px;
+      height: 360px;
+      transform: translateX(-50%) rotate(-4deg);
+      border-radius: 44px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.1), rgba(255,255,255,0.45)),
+        url("https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=900&q=80");
+      background-size: cover;
+      background-position: center;
+      box-shadow: 0 24px 70px rgba(255,75,155,0.22);
+    }
+
+    .smooth .lineup-product {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.1), rgba(255,255,255,0.45)),
+        url("https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?auto=format&fit=crop&w=900&q=80");
+      background-size: cover;
+      background-position: center;
+      transform: translateX(-50%) rotate(4deg);
+    }
+
+    /* =========================
+       Product Detail
+    ========================= */
+    .product-section {
+      background: #fff;
+    }
+
+    .product-block {
+      min-height: 760px;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 46px;
+      align-items: center;
+      padding: 70px 0;
+      border-bottom: 1px solid rgba(255,75,155,0.18);
+    }
+
+    .product-block.reverse {
+      grid-template-columns: 0.95fr 1.05fr;
+    }
+
+    .product-visual {
+      position: relative;
+      min-height: 610px;
+      border-radius: 64px;
+      background:
+        radial-gradient(circle at 20% 15%, #ffe45c 0 12%, transparent 12.5%),
+        radial-gradient(circle at 85% 78%, #ffc2dd 0 16%, transparent 16.5%),
+        #fff4fa;
+      overflow: hidden;
+    }
+
+    .product-visual.blue {
+      background:
+        radial-gradient(circle at 20% 15%, #ffe45c 0 12%, transparent 12.5%),
+        radial-gradient(circle at 85% 78%, #b9efff 0 16%, transparent 16.5%),
+        #f0fbff;
+    }
+
+    .big-bottle {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 250px;
+      height: 430px;
+      transform: translate(-50%, -50%);
+      border-radius: 44px;
+      background:
+        linear-gradient(180deg, #ff75b3 0%, #ffc2dd 55%, #fff 100%);
+      box-shadow:
+        0 30px 90px rgba(255,75,155,0.25),
+        inset 0 0 0 5px rgba(255,255,255,0.72);
+    }
+
+    .blue .big-bottle {
+      background:
+        linear-gradient(180deg, #68d8ff 0%, #b9efff 55%, #fff 100%);
+      box-shadow:
+        0 30px 90px rgba(55,188,232,0.25),
+        inset 0 0 0 5px rgba(255,255,255,0.72);
+    }
+
+    .big-bottle::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 28px;
+      width: 96px;
+      height: 48px;
+      transform: translateX(-50%);
+      border-radius: 16px 16px 7px 7px;
+      background: #fff;
+    }
+
+    .big-bottle::after {
+      content: "MEME";
+      position: absolute;
+      left: 50%;
+      top: 150px;
+      transform: translateX(-50%);
+      font-size: 55px;
+      line-height: 0.84;
+      font-weight: 900;
+      letter-spacing: -0.12em;
+      color: #fff;
+      text-align: center;
+    }
+
+    .product-info .series {
+      display: inline-flex;
+      background: #ff4b9b;
+      color: #fff;
+      border-radius: 999px;
+      padding: 9px 15px;
+      font-size: 12px;
+      font-weight: 900;
+      margin-bottom: 22px;
+    }
+
+    .product-info .series.blue {
+      background: #37bce8;
+    }
+
+    .product-info h3 {
+      font-size: clamp(42px, 6vw, 86px);
+      line-height: 0.92;
+      letter-spacing: -0.1em;
+      font-weight: 900;
+      color: #ff4b9b;
+      margin-bottom: 26px;
+    }
+
+    .product-info.blue h3 {
+      color: #37bce8;
+    }
+
+    .product-info p {
+      max-width: 520px;
+      font-size: 17px;
+      line-height: 2;
+      font-weight: 900;
+      color: #4b2b3b;
+      margin-bottom: 26px;
+    }
+
+    .product-points {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+
+    .point {
+      background: #fff8fb;
+      border: 2px solid #ffb8d6;
+      border-radius: 999px;
+      padding: 13px 18px;
+      font-size: 14px;
+      font-weight: 900;
+      color: #4b2b3b;
+    }
+
+    .blue .point,
+    .product-info.blue .point {
+      background: #f0fbff;
+      border-color: #b9efff;
+    }
+
+    /* =========================
+       Awards
+    ========================= */
+    .awards {
+      background:
+        radial-gradient(circle at 8% 25%, rgba(255,228,92,0.8) 0 10%, transparent 10.5%),
+        radial-gradient(circle at 88% 65%, rgba(255,194,221,0.75) 0 14%, transparent 14.5%),
+        #fff8fb;
+    }
+
+    .award-board {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .award {
+      min-height: 190px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      background: #fff;
+      border-radius: 36px;
+      border: 3px solid #ffb8d6;
+      box-shadow: 8px 8px 0 #ffe45c;
+      transform: rotate(-2deg);
+      transition: transform 0.28s ease, box-shadow 0.28s ease;
+    }
+
+    .award:nth-child(even) {
+      transform: rotate(2deg);
+      box-shadow: 8px 8px 0 #b9efff;
+    }
+
+    .award:hover {
+      transform: scale(1.12) rotate(0deg) !important;
+      z-index: 2;
+    }
+
+    .award strong {
+      display: block;
+      font-size: 34px;
+      line-height: 0.95;
+      letter-spacing: -0.06em;
+      font-weight: 900;
+      color: #ff4b9b;
+    }
+
+    .award span {
+      display: block;
+      margin-top: 12px;
+      font-size: 12px;
+      line-height: 1.5;
+      font-weight: 900;
+      color: #4b2b3b;
+    }
+
+    /* =========================
+       Topics
+    ========================= */
+    .topics {
+      background: #effbff;
+    }
+
+    .topics-list {
+      max-width: 880px;
+      margin: 0 auto;
+      display: grid;
+      gap: 16px;
+    }
+
+    .topic {
+      display: grid;
+      grid-template-columns: 120px 1fr 100px;
+      gap: 18px;
+      align-items: center;
+      background: #fff;
+      border-radius: 28px;
+      padding: 22px;
+      border: 2px solid #b9efff;
+      box-shadow: 0 12px 30px rgba(55,188,232,0.12);
+      transition: 0.25s ease;
+    }
+
+    .topic:hover {
+      transform: translateX(10px);
+      box-shadow: -4px 4px 0 #ffe45c;
+    }
+
+    .topic-date {
+      font-size: 13px;
+      font-weight: 900;
+      color: #ff4b9b;
+    }
+
+    .topic-title {
+      font-size: 20px;
+      line-height: 1.5;
+      font-weight: 900;
+      color: #4b2b3b;
+    }
+
+    .topic-tag {
+      justify-self: end;
+      background: #ff4b9b;
+      color: #fff;
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    /* =========================
+       Shop
+    ========================= */
+    .shop {
+      background:
+        radial-gradient(circle at 16% 20%, rgba(255,228,92,0.85) 0 11%, transparent 11.5%),
+        radial-gradient(circle at 82% 70%, rgba(255,194,221,0.8) 0 15%, transparent 15.5%),
+        linear-gradient(180deg, #fff 0%, #fff8fb 100%);
+      text-align: center;
+    }
+
+    .shop-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      max-width: 860px;
+      margin: 40px auto 0;
+    }
+
+    .shop-card {
+      background: #fff;
+      border: 2px solid #ffb8d6;
+      border-radius: 999px;
+      padding: 20px 22px;
+      font-size: 15px;
+      font-weight: 900;
+      color: #ff4b9b;
+      box-shadow: 0 7px 0 #ffe45c;
+      transition: 0.25s ease;
+    }
+
+    .shop-card:hover {
+      transform: translateY(-6px);
+    }
+
+    /* =========================
+       Modal
+    ========================= */
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 18000;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.3s ease;
+    }
+
+    .modal.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(75, 43, 59, 0.48);
+      backdrop-filter: blur(8px);
+    }
+
+    .modal-panel {
+      position: relative;
+      z-index: 2;
+      width: min(960px, 100%);
+      max-height: min(760px, 90vh);
+      overflow: auto;
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 28px;
+      background: #fff8fb;
+      border: 3px solid #ff9ac8;
+      border-radius: 44px;
+      padding: 30px;
+      box-shadow:
+        0 30px 100px rgba(255, 75, 155, 0.32),
+        12px 12px 0 #ffe45c;
+      transform: translateY(30px) scale(0.96);
+      transition: 0.3s ease;
+    }
+
+    .modal.show .modal-panel {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal-close {
+      position: absolute;
+      right: 22px;
+      top: 18px;
+      width: 42px;
+      height: 42px;
+      border: 0;
+      border-radius: 50%;
+      background: #ff4b9b;
+      color: #fff;
+      font-size: 28px;
+      line-height: 1;
+      cursor: pointer;
+      font-weight: 900;
+      z-index: 3;
+    }
+
+    .modal-visual {
+      min-height: 420px;
+      border-radius: 34px;
+      background:
+        radial-gradient(circle at 25% 18%, #ffe45c 0 13%, transparent 13.5%),
+        radial-gradient(circle at 82% 82%, #b9efff 0 16%, transparent 16.5%),
+        #ffe8f3;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .modal-bottle {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 180px;
+      height: 320px;
+      transform: translate(-50%, -50%);
+      border-radius: 36px;
+      background:
+        linear-gradient(180deg, #ff75b3 0%, #ffc2dd 55%, #fff 100%);
+      box-shadow:
+        0 30px 80px rgba(255,75,155,0.25),
+        inset 0 0 0 5px rgba(255,255,255,0.72);
+    }
+
+    .modal-bottle.blue {
+      background:
+        linear-gradient(180deg, #68d8ff 0%, #b9efff 55%, #fff 100%);
+      box-shadow:
+        0 30px 80px rgba(55,188,232,0.25),
+        inset 0 0 0 5px rgba(255,255,255,0.72);
+    }
+
+    .modal-bottle::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 24px;
+      width: 78px;
+      height: 40px;
+      transform: translateX(-50%);
+      border-radius: 14px 14px 6px 6px;
+      background: #fff;
+    }
+
+    .modal-bottle::after {
+      content: "ME";
+      position: absolute;
+      left: 50%;
+      top: 130px;
+      transform: translateX(-50%);
+      font-size: 58px;
+      line-height: 0.84;
+      font-weight: 900;
+      letter-spacing: -0.12em;
+      color: #fff;
+      text-align: center;
+    }
+
+    .modal-content {
+      padding: 34px 18px 20px;
+    }
+
+    .modal-label {
+      display: inline-flex;
+      background: #ff4b9b;
+      color: #fff;
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 12px;
+      font-weight: 900;
+      margin-bottom: 18px;
+    }
+
+    .modal-content h2 {
+      font-size: clamp(38px, 5vw, 66px);
+      line-height: 0.95;
+      letter-spacing: -0.08em;
+      color: #ff4b9b;
+      font-weight: 900;
+      margin-bottom: 22px;
+    }
+
+    .modal-content p {
+      font-size: 16px;
+      line-height: 2;
+      font-weight: 900;
+      color: #4b2b3b;
+      margin-bottom: 24px;
+    }
+
+    .modal-list {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .modal-list div {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 16px;
+      padding: 12px 0;
+      border-top: 2px solid rgba(255, 75, 155, 0.18);
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .modal-list dt {
+      color: #ff4b9b;
+    }
+
+    .modal-list dd {
+      color: #4b2b3b;
+    }
+
+    /* =========================
+       Footer
+    ========================= */
+    .footer {
+      background: #ff4b9b;
+      color: #fff;
+      padding: 34px 0;
+      font-weight: 900;
+      font-size: 13px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .sns {
+      display: flex;
+      gap: 18px;
+    }
+
+    /* =========================
+       Scroll animation
+    ========================= */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(54px) scale(0.96);
+      filter: blur(3px);
+      transition:
+        opacity   0.9s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+        filter    0.65s ease;
+    }
+
+    .fade-up.show {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
+
+    /* =========================
+       Floating Deco Particles
+    ========================= */
+    .deco-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .deco-particle {
+      position: absolute;
+      font-size: var(--size, 16px);
+      color: var(--color, #ff9ac8);
+      opacity: var(--opacity, 0.45);
+      animation: deco-drift var(--dur, 8s) ease-in-out var(--delay, 0s) infinite;
+    }
+
+    @keyframes deco-drift {
+      0% {
+        transform: translateY(0) rotate(0deg) scale(1);
+      }
+      30% {
+        transform: translateY(-24px) rotate(16deg) scale(1.12);
+      }
+      65% {
+        transform: translateY(-10px) rotate(-9deg) scale(0.91);
+      }
+      100% {
+        transform: translateY(0) rotate(0deg) scale(1);
+      }
+    }
+
+    /* =========================
+       Ripple
+    ========================= */
+    .ripple-ring {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.52);
+      transform: scale(0);
+      animation: ripple-burst 0.55s ease-out forwards;
+      pointer-events: none;
+    }
+
+    @keyframes ripple-burst {
+      to {
+        transform: scale(3.5);
+        opacity: 0;
+      }
+    }
+
+    /* =========================
+       Custom Cursor
+    ========================= */
+    body {
+      cursor: none;
+    }
+
+    .cursor {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: #ff4b9b;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      mix-blend-mode: multiply;
+      transition: width 0.18s ease, height 0.18s ease, background 0.2s ease;
+    }
+
+    .cursor-ring {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 2px solid #ff4b9b;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      opacity: 0.5;
+      transition: width 0.22s ease, height 0.22s ease, opacity 0.22s ease;
+    }
+
+    body.is-hovering .cursor {
+      width: 26px;
+      height: 26px;
+      background: #ffe45c;
+    }
+
+    body.is-hovering .cursor-ring {
+      width: 64px;
+      height: 64px;
+      opacity: 0.28;
+    }
+
+    /* =========================
+       Responsive
+    ========================= */
+    @media (max-width: 940px) {
+      body {
+        cursor: auto;
+      }
+
+      .cursor,
+      .cursor-ring {
+        display: none;
+      }
+
+      .header {
+        padding: 16px 18px;
+      }
+
+      .menu-button {
+        display: grid;
+      }
+
+      .nav {
+        position: fixed;
+        inset: 0;
+        z-index: 1001;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 24px;
+        border: 0;
+        border-radius: 0;
+        padding: 40px;
+        background:
+          radial-gradient(circle at 20% 20%, #ffe45c 0 11%, transparent 11.5%),
+          radial-gradient(circle at 80% 75%, #b9efff 0 14%, transparent 14.5%),
+          rgba(255, 248, 251, 0.96);
+        backdrop-filter: blur(16px);
+        box-shadow: none;
+        transform: translateY(-100%);
+        opacity: 0;
+        pointer-events: none;
+        transition: 0.35s ease;
+      }
+
+      body.menu-open .nav {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .nav a {
+        font-size: 34px;
+        line-height: 1;
+        letter-spacing: -0.08em;
+        text-shadow: 3px 3px 0 #ffe45c;
+      }
+
+      .nav .shop-link {
+        font-size: 24px;
+        padding: 14px 22px;
+      }
+
+      .hero-inner,
+      .concept-layout,
+      .product-block,
+      .product-block.reverse,
+      .modal-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .visual-area {
+        min-height: 560px;
+      }
+
+      .main-visual {
+        height: 490px;
+      }
+
+      .product-cut {
+        width: 160px;
+      }
+
+      .fake-bottle {
+        height: 200px;
+      }
+
+      .product-cut.left {
+        left: 2px;
+        top: 30px;
+      }
+
+      .product-cut.right {
+        right: 2px;
+        bottom: 48px;
+      }
+
+      .concept-image {
+        min-height: 460px;
+      }
+
+      .concept-card {
+        padding: 34px 24px;
+      }
+
+      .lineup-row,
+      .award-board,
+      .shop-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .lineup-panel {
+        min-height: 560px;
+      }
+
+      .product-block {
+        min-height: auto;
+      }
+
+      .product-visual {
+        min-height: 500px;
+      }
+
+      .topic {
+        grid-template-columns: 1fr;
+      }
+
+      .topic-tag {
+        justify-self: start;
+      }
+
+      .modal-panel {
+        padding: 20px;
+        border-radius: 32px;
+      }
+
+      .modal-visual {
+        min-height: 330px;
+      }
+
+      .modal-bottle {
+        width: 140px;
+        height: 250px;
+      }
+
+      .modal-list div {
+        grid-template-columns: 1fr;
+        gap: 4px;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (hover: none) {
+      body {
+        cursor: auto;
+      }
+
+      .cursor,
+      .cursor-ring {
+        display: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      .fade-up {
+        opacity: 1;
+        transform: none;
+        filter: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Loader -->
+  <div class="loader" id="loader">
+    <div class="loader-logo">
+      ME<br>ME<br>ME
+    </div>
+    <div class="loader-bar">
+      <span></span>
+    </div>
+  </div>
+
+  <!-- Scroll Progress -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- Decorations / Cursor -->
+  <div class="deco-layer" id="decoLayer"></div>
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- Header -->
+  <header class="header">
+    <a href="#top" class="logo" aria-label="PLAY ME top">
+      ME<br>ME<br>ME
+    </a>
+
+    <button class="menu-button" id="menuButton" aria-label="メニューを開く" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <nav class="nav" id="navMenu" aria-label="Main navigation">
+      <a href="#top">TOP</a>
+      <a href="#concept">CONCEPT</a>
+      <a href="#product">PRODUCT</a>
+      <a href="#topics">TOPICS</a>
+      <a href="#shop" class="shop-link">SHOP</a>
+    </nav>
+  </header>
+
+  <main id="top">
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-bg-text">
+        PLAY!<br>ME
+      </div>
+
+      <div class="container hero-inner">
+        <div class="hero-copy fade-up">
+          <div class="label">BOOSTING HAIR CARE BRAND</div>
+
+          <h1 class="hero-title">
+            <span>PLAY!</span>
+            <span>ME</span>
+          </h1>
+
+          <p class="hero-message">
+            特別な日だけじゃない。<br>
+            <span class="marker">毎日毎分毎秒</span>、楽しいに妥協なんかしたくない。
+            髪も気分も弾む、わたしのためのブーストケア。
+          </p>
+
+          <div class="hero-buttons">
+            <a href="#concept" class="btn primary">CONCEPT</a>
+            <a href="#product" class="btn secondary">PRODUCT</a>
+          </div>
+        </div>
+
+        <div class="visual-area fade-up">
+          <div class="main-visual"></div>
+
+          <div class="product-cut left">
+            <div class="fake-bottle"></div>
+            <p>MOIST BOOST<br>Shampoo</p>
+          </div>
+
+          <div class="product-cut right">
+            <div class="fake-bottle blue"></div>
+            <p>SMOOTH BOOST<br>Treatment</p>
+          </div>
+
+          <div class="sticker one">NEW<br>HAIR<br>CARE</div>
+          <div class="sticker two">毎日<br>過去最高</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ticker -->
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-inner">
+        <span class="ticker-item">PLAY ME</span><span class="ticker-item">★</span>
+        <span class="ticker-item">MOIST BOOST</span><span class="ticker-item">♥</span>
+        <span class="ticker-item">SMOOTH BOOST</span><span class="ticker-item">✦</span>
+        <span class="ticker-item">HAIR CARE BRAND</span><span class="ticker-item">◎</span>
+        <span class="ticker-item">毎日過去最高</span><span class="ticker-item">★</span>
+        <span class="ticker-item">PLAY ME</span><span class="ticker-item">★</span>
+        <span class="ticker-item">MOIST BOOST</span><span class="ticker-item">♥</span>
+        <span class="ticker-item">SMOOTH BOOST</span><span class="ticker-item">✦</span>
+        <span class="ticker-item">HAIR CARE BRAND</span><span class="ticker-item">◎</span>
+        <span class="ticker-item">毎日過去最高</span><span class="ticker-item">★</span>
+      </div>
+    </div>
+
+    <div class="ticker ticker-rev" aria-hidden="true">
+      <div class="ticker-inner">
+        <span class="ticker-item">NO.1 HAIR CARE</span><span class="ticker-item">◆</span>
+        <span class="ticker-item">BOOSTING BRAND</span><span class="ticker-item">✿</span>
+        <span class="ticker-item">わたし史上最高の髪</span><span class="ticker-item">◆</span>
+        <span class="ticker-item">TRUST YOUR HAIR</span><span class="ticker-item">✿</span>
+        <span class="ticker-item">NO.1 HAIR CARE</span><span class="ticker-item">◆</span>
+        <span class="ticker-item">BOOSTING BRAND</span><span class="ticker-item">✿</span>
+        <span class="ticker-item">わたし史上最高の髪</span><span class="ticker-item">◆</span>
+        <span class="ticker-item">TRUST YOUR HAIR</span><span class="ticker-item">✿</span>
+      </div>
+    </div>
+
+    <!-- Concept -->
+    <section class="section concept" id="concept">
+      <div class="container concept-layout">
+        <div class="concept-image fade-up"></div>
+
+        <div class="concept-card fade-up">
+          <h2>
+            <span class="marker-pink">最高の1日</span>は、<br>
+            最高のわたしが<br>
+            つくる。
+          </h2>
+
+          <p>
+            髪型が決まった日の、あの無敵感。<br>
+            思わず鏡の前で笑顔になっちゃう、あの感じ。<br><br>
+            誰かの目なんて関係なく、わたしが好きなもの、
+            かわいいと思うもの、かっこいいと感じるものを楽しむ。
+            その気分を、毎日のヘアケアからブーストする。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lineup -->
+    <section class="section lineup">
+      <div class="container">
+        <div class="section-head fade-up">
+          <h2 class="section-title">
+            <small>LINE UP</small>
+            MOIST<br>& SMOOTH
+          </h2>
+          <p class="section-copy">
+            うるおい重視のMOIST、さらツヤ重視のSMOOTH。髪質やなりたい気分に合わせて選べるラインアップ。
+          </p>
+        </div>
+
+        <div class="lineup-row">
+          <article class="lineup-panel fade-up">
+            <h3>MOIST<br>BOOST</h3>
+            <p>
+              ぷるんとまとまる、うるツヤ髪へ。乾燥や広がりが気になる髪に。
+            </p>
+            <div class="lineup-product"></div>
+          </article>
+
+          <article class="lineup-panel smooth fade-up">
+            <h3>SMOOTH<br>BOOST</h3>
+            <p>
+              さらっと軽く、指通りのよいツヤ髪へ。重くなりすぎない仕上がりに。
+            </p>
+            <div class="lineup-product"></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Product Detail -->
+    <section class="section product-section" id="product">
+      <div class="container">
+        <div class="section-head fade-up">
+          <h2 class="section-title">
+            <small>PRODUCT</small>
+            BOOST<br>CARE
+          </h2>
+        </div>
+
+        <article class="product-block">
+          <div class="product-visual fade-up">
+            <div class="big-bottle"></div>
+          </div>
+
+          <div class="product-info fade-up">
+            <span class="series">MOIST SERIES</span>
+
+            <h3>Moist Boost<br>Shampoo</h3>
+
+            <p>
+              毛先までぷるんと弾むような、うるおい感のある髪へ。
+              毎日のシャンプー時間を、気分が上がるケア体験に変えるアイテム。
+            </p>
+
+            <div class="product-points">
+              <div class="point">うるおい感のある仕上がり</div>
+              <div class="point">まとまりやすい髪へ</div>
+              <div class="point">気分が弾む香り</div>
+            </div>
+
+            <a href="#" class="btn primary js-open-modal" data-product="moist">DETAIL</a>
+          </div>
+        </article>
+
+        <article class="product-block reverse">
+          <div class="product-info blue fade-up">
+            <span class="series blue">SMOOTH SERIES</span>
+
+            <h3>Smooth Boost<br>Treatment</h3>
+
+            <p>
+              指通りなめらかな、さらツヤ髪へ。
+              軽い仕上がりで、毎朝のスタイリング前の気分まで整えるトリートメント。
+            </p>
+
+            <div class="product-points">
+              <div class="point">さらっと軽い仕上がり</div>
+              <div class="point">指通りのよい髪へ</div>
+              <div class="point">ツヤ感をプラス</div>
+            </div>
+
+            <a href="#" class="btn secondary js-open-modal" data-product="smooth">DETAIL</a>
+          </div>
+
+          <div class="product-visual blue fade-up">
+            <div class="big-bottle"></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Awards -->
+    <section class="section awards">
+      <div class="container">
+        <div class="section-head fade-up">
+          <h2 class="section-title">
+            <small>AWARDS</small>
+            LOVE<br>ME
+          </h2>
+          <p class="section-copy">
+            ランキング、口コミ、SNSでの話題性などをバッジ風に見せるエリア。
+            商品LPでは信頼感を出すためにかなり大事です。
+          </p>
+        </div>
+
+        <div class="award-board">
+          <div class="award fade-up">
+            <div>
+              <strong>No.1</strong>
+              <span>Beauty Ranking</span>
+            </div>
+          </div>
+
+          <div class="award fade-up">
+            <div>
+              <strong>BEST</strong>
+              <span>Hair Care Award</span>
+            </div>
+          </div>
+
+          <div class="award fade-up">
+            <div>
+              <strong>★★★★★</strong>
+              <span>Review Pick</span>
+            </div>
+          </div>
+
+          <div class="award fade-up">
+            <div>
+              <strong>HOT</strong>
+              <span>SNS Trending</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Topics -->
+    <section class="section topics" id="topics">
+      <div class="container">
+        <div class="section-head fade-up">
+          <h2 class="section-title">
+            <small>TOPICS</small>
+            NEWS
+          </h2>
+        </div>
+
+        <div class="topics-list">
+          <a href="#" class="topic fade-up">
+            <p class="topic-date">2026.06.05</p>
+            <h3 class="topic-title">新ヘアケアラインが発売開始しました</h3>
+            <span class="topic-tag">NEW</span>
+          </a>
+
+          <a href="#" class="topic fade-up">
+            <p class="topic-date">2026.05.22</p>
+            <h3 class="topic-title">POP UP ブース出展のお知らせ</h3>
+            <span class="topic-tag">EVENT</span>
+          </a>
+
+          <a href="#" class="topic fade-up">
+            <p class="topic-date">2026.05.10</p>
+            <h3 class="topic-title">SNSキャンペーンをスタートしました</h3>
+            <span class="topic-tag">SNS</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Shop -->
+    <section class="section shop" id="shop">
+      <div class="container">
+        <div class="section-head fade-up">
+          <h2 class="section-title">
+            <small>SHOP</small>
+            GET<br>ME
+          </h2>
+
+          <p class="section-copy">
+            オンラインショップや取扱店舗への導線を置くことで、
+            ブランドの世界観から購入までを自然につなげます。
+          </p>
+        </div>
+
+        <div class="shop-grid fade-up">
+          <a href="#" class="shop-card">Official Store</a>
+          <a href="#" class="shop-card">Amazon</a>
+          <a href="#" class="shop-card">Rakuten</a>
+          <a href="#" class="shop-card">Qoo10</a>
+          <a href="#" class="shop-card">@cosme</a>
+          <a href="#" class="shop-card">Store List</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Product Modal -->
+  <div class="modal" id="productModal" aria-hidden="true">
+    <div class="modal-overlay" data-close-modal></div>
+
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" data-close-modal aria-label="閉じる">×</button>
+
+      <div class="modal-visual">
+        <div class="modal-bottle" id="modalBottle"></div>
+      </div>
+
+      <div class="modal-content">
+        <p class="modal-label" id="modalLabel">PRODUCT DETAIL</p>
+        <h2 id="modalTitle">Moist Boost Shampoo</h2>
+        <p id="modalText">
+          うるおい感のある仕上がりで、毎日のヘアケア時間を気分が上がる体験に変えるアイテム。
+          香り・ツヤ・まとまりを重視したブーストケアラインです。
+        </p>
+
+        <dl class="modal-list">
+          <div>
+            <dt>Type</dt>
+            <dd id="modalType">Moist</dd>
+          </div>
+          <div>
+            <dt>Price</dt>
+            <dd>¥1,540 tax in</dd>
+          </div>
+          <div>
+            <dt>Recommended</dt>
+            <dd id="modalRecommend">乾燥・広がり・ツヤ不足が気になる髪</dd>
+          </div>
+        </dl>
+
+        <a href="#shop" class="btn primary" data-close-modal>SHOP NOW</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>© 2026 PLAY ME Sample</p>
+
+      <div class="sns">
+        <a href="#">TikTok</a>
+        <a href="#">Instagram</a>
+        <a href="#">X</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // =========================
+    // 1. Loader
+    // =========================
+    window.addEventListener("load", function() {
+      var loader = document.getElementById("loader");
+
+      setTimeout(function() {
+        if (loader) {
+          loader.classList.add("hide");
+        }
+      }, 650);
+    });
+
+    // =========================
+    // 2. Fade-up with staggered delay
+    // =========================
+    var fadeObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (!entry.isIntersecting) return;
+
+        var siblings = Array.from(
+          entry.target.parentNode.querySelectorAll(".fade-up:not(.show)")
+        );
+
+        var idx = siblings.indexOf(entry.target);
+        entry.target.style.transitionDelay = (idx * 0.08) + "s";
+        entry.target.classList.add("show");
+        fadeObserver.unobserve(entry.target);
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll(".fade-up").forEach(function(el) {
+      fadeObserver.observe(el);
+    });
+
+    // =========================
+    // 3. Floating deco particles
+    // =========================
+    (function() {
+      var symbols = ["★", "♥", "✦", "◎", "✿", "◆", "❋", "○"];
+      var colors  = ["#ff4b9b", "#ffe45c", "#b9efff", "#ff9ac8", "#ffc2dd", "#37bce8"];
+      var layer   = document.getElementById("decoLayer");
+
+      if (!layer) return;
+
+      for (var i = 0; i < 32; i++) {
+        var el = document.createElement("span");
+        el.className = "deco-particle";
+        el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+
+        var size    = (Math.random() * 16 + 10).toFixed(1);
+        var left    = (Math.random() * 92 + 4).toFixed(1);
+        var top     = (Math.random() * 88 + 6).toFixed(1);
+        var dur     = (Math.random() * 7 + 5).toFixed(1);
+        var delay   = (Math.random() * 6).toFixed(1);
+        var opacity = (Math.random() * 0.28 + 0.18).toFixed(2);
+        var color   = colors[Math.floor(Math.random() * colors.length)];
+
+        el.style.cssText = [
+          "left:"      + left    + "%",
+          "top:"       + top     + "vh",
+          "--size:"    + size    + "px",
+          "--dur:"     + dur     + "s",
+          "--delay:"   + delay   + "s",
+          "--opacity:" + opacity,
+          "--color:"   + color
+        ].join(";");
+
+        layer.appendChild(el);
+      }
+    })();
+
+    // =========================
+    // 4. Scroll Progress + Parallax
+    // =========================
+    var heroBgText = document.querySelector(".hero-bg-text");
+    var conceptImg = document.querySelector(".concept-image");
+    var mainVisual = document.querySelector(".main-visual");
+    var heroEl     = document.querySelector(".hero");
+    var progress   = document.getElementById("scrollProgress");
+
+    var lastSY = window.scrollY;
+    var ticking = false;
+
+    function updateScrollEffects() {
+      var sy = window.scrollY;
+      var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      var progressWidth = docHeight > 0 ? (sy / docHeight) * 100 : 0;
+
+      if (progress) {
+        progress.style.width = progressWidth + "%";
+      }
+
+      var velY = (sy - lastSY) * 0.38;
+      lastSY = sy;
+
+      var skew = Math.max(-5, Math.min(5, velY));
+
+      if (heroBgText) {
+        heroBgText.style.transform =
+          "rotate(-6deg) translateY(" + (sy * 0.35).toFixed(1) + "px)";
+      }
+
+      if (mainVisual && heroEl && heroEl.getBoundingClientRect().bottom > 0) {
+        mainVisual.style.transform =
+          "translate(-50%, calc(-50% + " + (sy * 0.12).toFixed(1) + "px))" +
+          " rotate(-2deg) skewY(" + skew.toFixed(2) + "deg)";
+      }
+
+      if (conceptImg) {
+        var rect = conceptImg.getBoundingClientRect();
+        var center = rect.top + rect.height / 2 - window.innerHeight / 2;
+        conceptImg.style.transform =
+          "rotate(1deg) translateY(" + (center * -0.1).toFixed(1) + "px)" +
+          " skewY(" + (skew * 0.25).toFixed(2) + "deg)";
+      }
+
+      ticking = false;
+    }
+
+    function requestScrollEffects() {
+      if (!ticking) {
+        requestAnimationFrame(updateScrollEffects);
+        ticking = true;
+      }
+    }
+
+    window.addEventListener("scroll", requestScrollEffects, { passive: true });
+    window.addEventListener("resize", requestScrollEffects);
+    requestScrollEffects();
+
+    // =========================
+    // 5. Custom cursor
+    // =========================
+    (function() {
+      var cur  = document.getElementById("cursor");
+      var ring = document.getElementById("cursorRing");
+
+      if (!cur || !ring) return;
+
+      var canHover = window.matchMedia("(hover: hover)").matches;
+      if (!canHover) return;
+
+      var tx = -100;
+      var ty = -100;
+      var cx = -100;
+      var cy = -100;
+      var rx = -100;
+      var ry = -100;
+
+      document.addEventListener("mousemove", function(e) {
+        tx = e.clientX;
+        ty = e.clientY;
+      });
+
+      document.querySelectorAll("a, button, .btn, .lineup-panel, .topic, .shop-card, .award")
+        .forEach(function(el) {
+          el.addEventListener("mouseenter", function() {
+            document.body.classList.add("is-hovering");
+          });
+
+          el.addEventListener("mouseleave", function() {
+            document.body.classList.remove("is-hovering");
+          });
+        });
+
+      function loop() {
+        cx += (tx - cx) * 0.18;
+        cy += (ty - cy) * 0.18;
+        rx += (tx - rx) * 0.07;
+        ry += (ty - ry) * 0.07;
+
+        cur.style.left   = cx.toFixed(1) + "px";
+        cur.style.top    = cy.toFixed(1) + "px";
+        ring.style.left  = rx.toFixed(1) + "px";
+        ring.style.top   = ry.toFixed(1) + "px";
+
+        requestAnimationFrame(loop);
+      }
+
+      loop();
+    })();
+
+    // =========================
+    // 6. Button ripple
+    // =========================
+    document.querySelectorAll(".btn").forEach(function(btn) {
+      btn.addEventListener("click", function(e) {
+        var rect = btn.getBoundingClientRect();
+        var size = Math.max(rect.width, rect.height);
+        var rng  = document.createElement("span");
+
+        rng.className = "ripple-ring";
+        rng.style.width  = size + "px";
+        rng.style.height = size + "px";
+        rng.style.left   = (e.clientX - rect.left - size / 2) + "px";
+        rng.style.top    = (e.clientY - rect.top  - size / 2) + "px";
+
+        btn.appendChild(rng);
+
+        rng.addEventListener("animationend", function() {
+          rng.remove();
+        });
+      });
+    });
+
+    // =========================
+    // 7. Mobile menu
+    // =========================
+    var menuButton = document.getElementById("menuButton");
+    var navMenu = document.getElementById("navMenu");
+
+    if (menuButton && navMenu) {
+      menuButton.addEventListener("click", function() {
+        var isOpen = document.body.classList.toggle("menu-open");
+        menuButton.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      });
+
+      navMenu.querySelectorAll("a").forEach(function(link) {
+        link.addEventListener("click", function() {
+          document.body.classList.remove("menu-open");
+          menuButton.setAttribute("aria-expanded", "false");
+        });
+      });
+    }
+
+    // =========================
+    // 8. Product Modal
+    // =========================
+    var modal = document.getElementById("productModal");
+    var modalTitle = document.getElementById("modalTitle");
+    var modalText = document.getElementById("modalText");
+    var modalType = document.getElementById("modalType");
+    var modalRecommend = document.getElementById("modalRecommend");
+    var modalBottle = document.getElementById("modalBottle");
+
+    var productData = {
+      moist: {
+        title: "Moist Boost Shampoo",
+        text: "毛先までぷるんと弾むような、うるおい感のある髪へ。乾燥や広がりが気になる髪を、しっとりまとまりやすい仕上がりへ導きます。",
+        type: "Moist Series",
+        recommend: "乾燥・広がり・パサつきが気になる髪",
+        blue: false
+      },
+      smooth: {
+        title: "Smooth Boost Treatment",
+        text: "指通りなめらかな、さらツヤ髪へ。重くなりすぎない軽い仕上がりで、毎朝のスタイリング前の気分まで整えるトリートメント。",
+        type: "Smooth Series",
+        recommend: "絡まり・ごわつき・ツヤ不足が気になる髪",
+        blue: true
+      }
+    };
+
+    function openModal(productKey) {
+      if (!modal) return;
+
+      var data = productData[productKey] || productData.moist;
+
+      modalTitle.textContent = data.title;
+      modalText.textContent = data.text;
+      modalType.textContent = data.type;
+      modalRecommend.textContent = data.recommend;
+
+      if (data.blue) {
+        modalBottle.classList.add("blue");
+      } else {
+        modalBottle.classList.remove("blue");
+      }
+
+      modal.classList.add("show");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
+    }
+
+    function closeModal() {
+      if (!modal) return;
+
+      modal.classList.remove("show");
+      modal.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("modal-open");
+    }
+
+    document.querySelectorAll(".js-open-modal").forEach(function(btn) {
+      btn.addEventListener("click", function(e) {
+        e.preventDefault();
+        openModal(btn.dataset.product);
+      });
+    });
+
+    document.querySelectorAll("[data-close-modal]").forEach(function(el) {
+      el.addEventListener("click", function() {
+        closeModal();
+      });
+    });
+
+    document.addEventListener("keydown", function(e) {
+      if (e.key === "Escape") {
+        closeModal();
+
+        if (document.body.classList.contains("menu-open")) {
+          document.body.classList.remove("menu-open");
+          if (menuButton) {
+            menuButton.setAttribute("aria-expanded", "false");
+          }
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>

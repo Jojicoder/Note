@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>K / WORKS — Creative Portfolio</title>
+  <style>
+    /* ── Reset ─────────────────────────────────────────── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", sans-serif;
+      background: #f5f5f5;
+      color: #111;
+      overflow-x: hidden;
+      cursor: none;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; border: none; background: none; cursor: none; }
+    @media (hover: none) { body { cursor: auto; } .cursor-dot { display: none; } }
+
+    /* ── Loader ─────────────────────────────────────────── */
+    .loader {
+      position: fixed;
+      inset: 0;
+      z-index: 20000;
+      background: #111;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+      transition: opacity 0.7s ease, visibility 0.7s ease;
+    }
+    .loader.done { opacity: 0; visibility: hidden; }
+    .loader-text {
+      font-size: clamp(16px, 2.5vw, 24px);
+      font-weight: 700;
+      color: #f5f5f5;
+      letter-spacing: 0.1em;
+    }
+    .loader-num { color: #c8ff00; }
+    .loader-track {
+      width: min(300px, 58vw);
+      height: 2px;
+      background: rgba(255,255,255,0.12);
+    }
+    .loader-fill {
+      width: 0%;
+      height: 100%;
+      background: #c8ff00;
+      transition: width 0.04s linear;
+    }
+
+    /* ── Scroll progress ────────────────────────────────── */
+    .scroll-prog {
+      position: fixed;
+      top: 0; left: 0;
+      z-index: 19000;
+      height: 3px;
+      width: 0%;
+      background: #c8ff00;
+    }
+
+    /* ── Cursor ─────────────────────────────────────────── */
+    .cursor-dot {
+      position: fixed;
+      top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      background: #c8ff00;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      color: #111;
+      transition: width 0.3s ease, height 0.3s ease,
+                  border-radius 0.3s ease, font-size 0.25s ease,
+                  background 0.2s ease;
+      will-change: left, top;
+    }
+    body.cur-view .cursor-dot {
+      width: 78px;
+      height: 78px;
+      border-radius: 50%;
+      font-size: 10px;
+    }
+    body.cur-link .cursor-dot {
+      width: 6px;
+      height: 6px;
+      background: #ff1744;
+      border-radius: 50%;
+    }
+
+    /* ── Timecode ─────────────────────────────────────── */
+    .timecode {
+      position: fixed;
+      bottom: 20px;
+      right: 24px;
+      z-index: 1000;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: rgba(17,17,17,0.3);
+      font-variant-numeric: tabular-nums;
+      pointer-events: none;
+      transition: color 0.4s ease;
+    }
+    body.page-dark .timecode { color: rgba(245,245,245,0.3); }
+
+    /* ── Header ─────────────────────────────────────────── */
+    .header {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 22px 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.4s ease, backdrop-filter 0.4s ease;
+    }
+    .header.is-scrolled {
+      background: rgba(245,245,245,0.88);
+      backdrop-filter: blur(18px);
+    }
+    .header.is-dark {
+      background: rgba(17,17,17,0.88) !important;
+      backdrop-filter: blur(18px);
+    }
+    .logo {
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: #111;
+      transition: color 0.4s ease;
+      line-height: 1;
+    }
+    .header.is-dark .logo { color: #f5f5f5; }
+    .nav {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+    }
+    .nav a {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: #111;
+      transition: color 0.4s ease, opacity 0.2s ease;
+    }
+    .nav a:hover { opacity: 0.5; }
+    .header.is-dark .nav a { color: #f5f5f5; }
+    .nav-cta {
+      background: #111 !important;
+      color: #f5f5f5 !important;
+      padding: 10px 20px;
+      border-radius: 999px;
+    }
+    .header.is-dark .nav-cta {
+      background: #f5f5f5 !important;
+      color: #111 !important;
+    }
+
+    /* ── Hero ────────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: 1fr auto;
+      position: relative;
+      overflow: hidden;
+      background: #f5f5f5;
+      padding: 0 36px 52px;
+    }
+    .hero-bg-mark {
+      position: absolute;
+      top: 50%;
+      right: -60px;
+      transform: translateY(-50%);
+      font-size: clamp(200px, 34vw, 500px);
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: -0.1em;
+      color: rgba(17,17,17,0.04);
+      pointer-events: none;
+      white-space: nowrap;
+      user-select: none;
+      will-change: transform;
+    }
+
+    /* Stickers */
+    .sticker {
+      position: absolute;
+      z-index: 5;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      line-height: 1.4;
+      padding: 10px 14px;
+      border-radius: 6px;
+      box-shadow: 3px 3px 0 rgba(0,0,0,0.1);
+      pointer-events: none;
+      text-align: center;
+    }
+    .s-a { top: 16%; left: 5%;  background: #c8ff00; color: #111; transform: rotate(-7deg); animation: stk-float 6s ease-in-out infinite; }
+    .s-b { top: 20%; right: 9%; background: #111; color: #c8ff00; transform: rotate(4deg); font-size: 28px; letter-spacing: -0.04em; padding: 8px 16px; animation: stk-float 7s ease-in-out 0.8s infinite; }
+    .s-c { bottom: 24%; left: 20%; background: #ff1744; color: #fff; transform: rotate(-3deg); border-radius: 999px; animation: stk-float 5.5s ease-in-out 1.4s infinite; }
+    .s-d { top: 46%; right: 18%; background: #fff; color: #111; border: 2px solid #111; transform: rotate(9deg); font-size: 10px; animation: stk-float 6.5s ease-in-out 0.4s infinite; }
+
+    @keyframes stk-float {
+      0%, 100% { translate: 0 0; }
+      50%       { translate: 0 -14px; }
+    }
+
+    .hero-body {
+      align-self: flex-end;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: flex-end;
+      gap: 32px;
+      position: relative;
+      z-index: 2;
+      padding-top: 100px;
+    }
+    .hero-title {
+      font-size: clamp(70px, 13vw, 190px);
+      line-height: 0.87;
+      font-weight: 900;
+      letter-spacing: -0.06em;
+      color: #111;
+    }
+    .hero-title .outlined {
+      color: transparent;
+      -webkit-text-stroke: 3px #111;
+    }
+    .hero-title .red { color: #ff1744; }
+
+    .hero-meta {
+      padding-bottom: 6px;
+      text-align: right;
+    }
+    .hero-meta p {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      line-height: 2.4;
+      color: #888;
+    }
+
+    .hero-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      position: relative;
+      z-index: 2;
+    }
+    .hero-scroll {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: #999;
+    }
+    .scroll-line {
+      width: 48px;
+      height: 1px;
+      background: #999;
+      transform-origin: left;
+      animation: line-pulse 2s ease-in-out infinite;
+    }
+    @keyframes line-pulse {
+      0%, 100% { transform: scaleX(1); opacity: 1; }
+      50%       { transform: scaleX(0.3); opacity: 0.4; }
+    }
+    .hero-count {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: #bbb;
+    }
+    .hero-count span { color: #111; }
+
+    /* ── Ticker ──────────────────────────────────────────── */
+    .ticker {
+      background: #111;
+      overflow: hidden;
+      padding: 13px 0;
+      white-space: nowrap;
+    }
+    .ticker-inner {
+      display: inline-flex;
+      animation: t-fwd 20s linear infinite;
+    }
+    .ticker-item {
+      display: inline-block;
+      padding: 0 26px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: rgba(245,245,245,0.45);
+    }
+    .ticker-item.hi { color: #c8ff00; padding: 0 14px; }
+    @keyframes t-fwd {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ── Section common ──────────────────────────────────── */
+    .section { padding: 100px 0; }
+    .container {
+      width: min(1200px, calc(100% - 72px));
+      margin: 0 auto;
+    }
+    .s-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      color: #999;
+      margin-bottom: 20px;
+    }
+    .s-label::before {
+      content: "";
+      display: block;
+      width: 28px;
+      height: 1px;
+      background: currentColor;
+    }
+    .s-title {
+      font-size: clamp(52px, 9vw, 120px);
+      line-height: 0.88;
+      font-weight: 900;
+      letter-spacing: -0.07em;
+      color: #111;
+      margin-bottom: 56px;
+    }
+
+    /* ── Works ───────────────────────────────────────────── */
+    .works { background: #f5f5f5; }
+
+    .filter-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+    .f-tab {
+      padding: 9px 20px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: #777;
+      border: 1.5px solid #ddd;
+      transition: background 0.22s ease, color 0.22s ease, border-color 0.22s ease;
+    }
+    .f-tab.on, .f-tab:hover {
+      background: #111;
+      color: #f5f5f5;
+      border-color: #111;
+    }
+
+    .works-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .w-card {
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      aspect-ratio: 4/5;
+      cursor: none;
+      transition: transform 0.35s ease;
+    }
+    .w-card:hover { transform: scale(0.975); }
+    .w-card.hidden { display: none; }
+
+    .w-bg {
+      width: 100%;
+      height: 100%;
+      background: var(--c, #ddd);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .w-bg::before {
+      content: var(--n, "");
+      font-size: clamp(60px, 8vw, 96px);
+      font-weight: 900;
+      letter-spacing: -0.08em;
+      color: rgba(255,255,255,0.1);
+    }
+    .w-bg::after {
+      content: "";
+      position: absolute;
+      width: 55%;
+      height: 55%;
+      border: 1.5px solid rgba(255,255,255,0.1);
+      border-radius: 50%;
+    }
+    .w-over {
+      position: absolute;
+      inset: 0;
+      background: rgba(10,10,10,0.88);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .w-card:hover .w-over { opacity: 1; transform: none; }
+    .w-num  { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; color: #c8ff00; margin-bottom: 8px; }
+    .w-name { font-size: 19px; font-weight: 900; letter-spacing: -0.03em; color: #f5f5f5; margin-bottom: 5px; }
+    .w-cat  { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; color: #555; }
+
+    /* ── Pickup ──────────────────────────────────────────── */
+    .pickup { background: #111; padding: 100px 0; }
+    .pickup .s-label { color: #444; }
+    .pickup .s-label::before { background: #444; }
+    .pickup .s-title { color: #f5f5f5; }
+
+    .pickup-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 14px;
+      align-items: start;
+    }
+    .p-card { cursor: none; }
+    .p-img {
+      border-radius: 10px;
+      overflow: hidden;
+      background: var(--c, #222);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(60px, 8vw, 108px);
+      font-weight: 900;
+      letter-spacing: -0.08em;
+      color: rgba(255,255,255,0.07);
+      position: relative;
+      transition: transform 0.4s ease;
+    }
+    .p-card:hover .p-img { transform: scale(0.98); }
+    .p-img::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10,10,10,0.65) 0%, transparent 50%);
+    }
+    .p-card:nth-child(1) .p-img { aspect-ratio: 16/10; }
+    .p-card:nth-child(2) .p-img { aspect-ratio: 3/4; }
+    .p-info { padding: 18px 4px 0; }
+    .p-info .w-num  { color: #444; }
+    .p-info .w-name { color: #f5f5f5; font-size: 22px; }
+    .p-info .w-cat  { color: #555; }
+
+    /* ── About ───────────────────────────────────────────── */
+    .about { background: #f5f5f5; }
+    .about-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .about-text h2 {
+      font-size: clamp(40px, 5.5vw, 78px);
+      font-weight: 900;
+      letter-spacing: -0.07em;
+      line-height: 0.9;
+      margin-bottom: 36px;
+    }
+    .about-text h2 .out {
+      color: transparent;
+      -webkit-text-stroke: 2px #111;
+    }
+    .about-text p {
+      font-size: 15px;
+      line-height: 2.1;
+      color: #666;
+      margin-bottom: 14px;
+    }
+    .stats {
+      display: flex;
+      gap: 40px;
+      margin-top: 40px;
+      padding-top: 32px;
+      border-top: 1px solid #e0e0e0;
+    }
+    .stat dt {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      color: #aaa;
+      margin-bottom: 6px;
+    }
+    .stat dd {
+      font-size: 38px;
+      font-weight: 900;
+      letter-spacing: -0.07em;
+      color: #111;
+    }
+    .about-vis { position: relative; }
+    .about-photo {
+      width: 100%;
+      aspect-ratio: 3/4;
+      border-radius: 14px;
+      background:
+        radial-gradient(circle at 25% 35%, #c8ff00 0 18%, transparent 18.5%),
+        radial-gradient(circle at 72% 65%, #ff1744 0 14%, transparent 14.5%),
+        radial-gradient(circle at 50% 50%, #0051ff 0 22%, transparent 22.5%),
+        #111;
+    }
+    .about-tag {
+      position: absolute;
+      right: -16px;
+      bottom: 52px;
+      background: #c8ff00;
+      color: #111;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      padding: 12px 16px;
+      border-radius: 8px;
+      transform: rotate(6deg);
+      box-shadow: 4px 4px 0 rgba(0,0,0,0.12);
+      line-height: 1.5;
+    }
+
+    /* ── Contact ─────────────────────────────────────────── */
+    .contact {
+      background: #c8ff00;
+      padding: 110px 36px;
+      text-align: center;
+    }
+    .contact-title {
+      font-size: clamp(48px, 10vw, 138px);
+      font-weight: 900;
+      letter-spacing: -0.08em;
+      line-height: 0.88;
+      color: #111;
+      margin-bottom: 48px;
+    }
+    .contact-title .out {
+      color: transparent;
+      -webkit-text-stroke: 3px #111;
+    }
+    .contact-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      background: #111;
+      color: #c8ff00;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      padding: 18px 36px;
+      border-radius: 999px;
+      transition: transform 0.25s ease, gap 0.25s ease;
+    }
+    .contact-cta:hover { transform: scale(1.04); gap: 22px; }
+    .contact-cta::after { content: "→"; font-size: 16px; }
+
+    /* ── Footer ──────────────────────────────────────────── */
+    .footer {
+      background: #111;
+      padding: 28px 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .footer-logo { font-size: 18px; font-weight: 900; letter-spacing: -0.04em; color: #f5f5f5; }
+    .footer-copy { font-size: 10px; letter-spacing: 0.1em; color: #444; }
+    .footer-links { display: flex; gap: 22px; }
+    .footer-links a { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; color: #444; transition: color 0.2s ease; }
+    .footer-links a:hover { color: #c8ff00; }
+
+    /* ── Reveal ──────────────────────────────────────────── */
+    .rv {
+      opacity: 0;
+      filter: blur(2px);
+      transition:
+        opacity   0.85s cubic-bezier(0.16,1,0.3,1),
+        transform 0.85s cubic-bezier(0.16,1,0.3,1),
+        filter    0.6s ease;
+    }
+    .rv-up    { transform: translateY(48px); }
+    .rv-left  { transform: translateX(-36px); }
+    .rv-right { transform: translateX(36px); }
+    .rv.in { opacity: 1; transform: none; filter: blur(0); }
+
+    /* ── Responsive ──────────────────────────────────────── */
+    @media (max-width: 960px) {
+      .works-grid   { grid-template-columns: repeat(2, 1fr); }
+      .pickup-grid  { grid-template-columns: 1fr; }
+      .about-layout { grid-template-columns: 1fr; }
+      .hero-body    { grid-template-columns: 1fr; }
+      .hero-meta    { text-align: left; }
+      .footer       { flex-wrap: wrap; }
+    }
+    @media (max-width: 600px) {
+      .works-grid { grid-template-columns: 1fr; }
+      .hero, .header { padding-left: 20px; padding-right: 20px; }
+      .container  { width: calc(100% - 40px); }
+      .nav        { display: none; }
+      .stats      { flex-wrap: wrap; gap: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Loader -->
+  <div class="loader" id="loader">
+    <p class="loader-text">loading... <span class="loader-num" id="loaderNum">0</span>%</p>
+    <div class="loader-track"><div class="loader-fill" id="loaderFill"></div></div>
+  </div>
+
+  <!-- Scroll progress -->
+  <div class="scroll-prog" id="scrollProg"></div>
+
+  <!-- Cursor -->
+  <div class="cursor-dot" id="cursorDot">VIEW</div>
+
+  <!-- Timecode -->
+  <p class="timecode" id="timecode" aria-hidden="true">00:00:00:00</p>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <a href="#top" class="logo">K / WORKS</a>
+    <nav class="nav">
+      <a href="#works">WORKS</a>
+      <a href="#about">ABOUT</a>
+      <a href="#contact" class="nav-cta">CONTACT</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" id="top">
+    <div class="hero-bg-mark" id="heroBgMark" aria-hidden="true">WK</div>
+
+    <div class="sticker s-a">CREATIVE<br>WORKS ✦</div>
+    <div class="sticker s-b">2026</div>
+    <div class="sticker s-c">AVAILABLE ★</div>
+    <div class="sticker s-d">DESIGN / MOTION<br>WEB / VISUAL</div>
+
+    <div class="hero-body container">
+      <h1 class="hero-title">
+        MAKE<br>
+        <span class="outlined">SOME</span><br>
+        THING<br>
+        <span class="red">COOL.</span>
+      </h1>
+      <div class="hero-meta">
+        <p>CREATIVE DESIGNER</p>
+        <p>BASED IN TOKYO</p>
+        <p>— JAPAN</p>
+      </div>
+    </div>
+
+    <div class="hero-bottom container">
+      <div class="hero-scroll">
+        <div class="scroll-line"></div>
+        <span>SCROLL</span>
+      </div>
+      <p class="hero-count">WORKS <span>06</span> / 06</p>
+    </div>
+  </section>
+
+  <!-- Ticker -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-inner">
+      <span class="ticker-item hi">★</span>
+      <span class="ticker-item">GRAPHIC DESIGN</span>
+      <span class="ticker-item hi">★</span>
+      <span class="ticker-item">MOTION GRAPHICS</span>
+      <span class="ticker-item hi">★</span>
+      <span class="ticker-item">WEB DESIGN</span>
+      <span class="ticker-item hi">★</span>
+      <span class="ticker-item">ART DIRECTION</span>
+      <span class="ticker-item hi">★</span>
+      <span class="ticker-item">VISUAL IDENTITY</span>
+      <span class="ticker-item hi">★</span>
+      <span class="ticker-item">PHOTOGRAPHY</span>
+      <span class="ticker-item hi">★</span>
+      <span class="ticker-item">GRAPHIC DESIGN</span>
+      <span class="ticker-item hi">★</span>
+      <span class="ticker-item">MOTION GRAPHICS</span>
+      <span class="ticker-item hi">★</span>
+      <span class="ticker-item">WEB DESIGN</span>
+      <span class="ticker-item hi">★</span>
+      <span class="ticker-item">ART DIRECTION</span>
+      <span class="ticker-item hi">★</span>
+      <span class="ticker-item">VISUAL IDENTITY</span>
+      <span class="ticker-item hi">★</span>
+      <span class="ticker-item">PHOTOGRAPHY</span>
+    </div>
+  </div>
+
+  <!-- Works -->
+  <section class="section works" id="works">
+    <div class="container">
+      <p class="s-label rv rv-up">SELECTED WORKS</p>
+      <h2 class="s-title rv rv-up">WORKS</h2>
+
+      <div class="filter-row rv rv-up">
+        <button class="f-tab on" data-f="all">ALL</button>
+        <button class="f-tab" data-f="visual">VISUAL</button>
+        <button class="f-tab" data-f="web">WEB</button>
+        <button class="f-tab" data-f="motion">MOTION</button>
+      </div>
+
+      <div class="works-grid">
+
+        <article class="w-card rv rv-up" data-cat="visual">
+          <div class="w-bg" style="--c:#c8ff00; --n:'01'"></div>
+          <div class="w-over">
+            <p class="w-num">01 — VISUAL</p>
+            <p class="w-name">Brand Identity</p>
+            <p class="w-cat">GRAPHIC DESIGN</p>
+          </div>
+        </article>
+
+        <article class="w-card rv rv-up" data-cat="web">
+          <div class="w-bg" style="--c:#111; --n:'02'"></div>
+          <div class="w-over">
+            <p class="w-num">02 — WEB</p>
+            <p class="w-name">Portfolio Site</p>
+            <p class="w-cat">WEB DESIGN</p>
+          </div>
+        </article>
+
+        <article class="w-card rv rv-up" data-cat="motion">
+          <div class="w-bg" style="--c:#ff1744; --n:'03'"></div>
+          <div class="w-over">
+            <p class="w-num">03 — MOTION</p>
+            <p class="w-name">Title Sequence</p>
+            <p class="w-cat">MOTION GRAPHICS</p>
+          </div>
+        </article>
+
+        <article class="w-card rv rv-up" data-cat="visual">
+          <div class="w-bg" style="--c:#0051ff; --n:'04'"></div>
+          <div class="w-over">
+            <p class="w-num">04 — VISUAL</p>
+            <p class="w-name">Poster Series</p>
+            <p class="w-cat">ART DIRECTION</p>
+          </div>
+        </article>
+
+        <article class="w-card rv rv-up" data-cat="web">
+          <div class="w-bg" style="--c:#222; --n:'05'"></div>
+          <div class="w-over">
+            <p class="w-num">05 — WEB</p>
+            <p class="w-name">E-Commerce UI</p>
+            <p class="w-cat">UI / UX DESIGN</p>
+          </div>
+        </article>
+
+        <article class="w-card rv rv-up" data-cat="motion">
+          <div class="w-bg" style="--c:#5500cc; --n:'06'"></div>
+          <div class="w-over">
+            <p class="w-num">06 — MOTION</p>
+            <p class="w-name">Loop Animation</p>
+            <p class="w-cat">MOTION DESIGN</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Pickup -->
+  <section class="pickup section" id="pickup">
+    <div class="container">
+      <p class="s-label rv rv-up">FEATURED</p>
+      <h2 class="s-title rv rv-up">PICK<br>UP</h2>
+      <div class="pickup-grid">
+        <article class="p-card rv rv-left">
+          <div class="p-img" style="--c:#c8ff00">01</div>
+          <div class="p-info">
+            <p class="w-num">01 — FEATURED</p>
+            <p class="w-name">Brand Identity</p>
+            <p class="w-cat">GRAPHIC DESIGN / 2026</p>
+          </div>
+        </article>
+        <article class="p-card rv rv-right">
+          <div class="p-img" style="--c:#ff1744">03</div>
+          <div class="p-info">
+            <p class="w-num">03 — FEATURED</p>
+            <p class="w-name">Title Sequence</p>
+            <p class="w-cat">MOTION GRAPHICS / 2026</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="section about" id="about">
+    <div class="container">
+      <p class="s-label rv rv-up">ABOUT</p>
+      <div class="about-layout">
+        <div class="about-text rv rv-left">
+          <h2>CREATIVE<br><span class="out">DESIGN</span><br>STUDIO.</h2>
+          <p>グラフィック・モーション・ウェブを中心に、ブランドの世界観を視覚化するクリエイティブスタジオ。</p>
+          <p>特定のスタイルに縛られず、プロジェクトごとに最適なアプローチを探り続けています。</p>
+          <dl class="stats">
+            <div class="stat"><dt>WORKS</dt><dd>80+</dd></div>
+            <div class="stat"><dt>CLIENTS</dt><dd>40+</dd></div>
+            <div class="stat"><dt>YEARS</dt><dd>5+</dd></div>
+          </dl>
+        </div>
+        <div class="about-vis rv rv-right">
+          <div class="about-photo"></div>
+          <div class="about-tag">CREATIVE ★<br>WORKS 2026</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact" id="contact">
+    <h2 class="contact-title rv rv-up">
+      LET'S<br><span class="out">WORK</span><br>TOGETHER.
+    </h2>
+    <a href="mailto:hello@example.com" class="contact-cta rv rv-up">GET IN TOUCH</a>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer" id="footer">
+    <p class="footer-logo">K / WORKS</p>
+    <p class="footer-copy">© 2026 K / WORKS. ALL RIGHTS RESERVED.</p>
+    <div class="footer-links">
+      <a href="#">Instagram</a>
+      <a href="#">X / Twitter</a>
+      <a href="#">Behance</a>
+    </div>
+  </footer>
+
+  <script>
+    // ── 1. Loader ────────────────────────────────────────────
+    (function() {
+      var num    = document.getElementById("loaderNum");
+      var fill   = document.getElementById("loaderFill");
+      var loader = document.getElementById("loader");
+      var count  = 0;
+      var id = setInterval(function() {
+        count++;
+        num.textContent  = count;
+        fill.style.width = count + "%";
+        if (count >= 100) {
+          clearInterval(id);
+          setTimeout(function() { loader.classList.add("done"); }, 280);
+        }
+      }, 14);
+    })();
+
+    // ── 2. Scroll progress ───────────────────────────────────
+    var prog = document.getElementById("scrollProg");
+    function onScroll() {
+      var h = document.documentElement.scrollHeight - window.innerHeight;
+      prog.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + "%";
+      updateHeader();
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    // ── 3. Header (scrolled + dark sections) ─────────────────
+    var header  = document.getElementById("header");
+    var darkIds = ["pickup", "footer"];
+
+    function updateHeader() {
+      header.classList.toggle("is-scrolled", window.scrollY > 60);
+      var isDark = darkIds.some(function(id) {
+        var el = document.getElementById(id);
+        if (!el) return false;
+        var r = el.getBoundingClientRect();
+        return r.top <= 80 && r.bottom > 0;
+      });
+      header.classList.toggle("is-dark", isDark);
+      document.body.classList.toggle("page-dark", isDark);
+    }
+
+    // ── 4. Hero parallax ────────────────────────────────────
+    var bgMark = document.getElementById("heroBgMark");
+    window.addEventListener("scroll", function() {
+      if (bgMark) {
+        bgMark.style.transform =
+          "translateY(calc(-50% + " + (window.scrollY * 0.22).toFixed(1) + "px))";
+      }
+    }, { passive: true });
+
+    // ── 5. Cursor ────────────────────────────────────────────
+    (function() {
+      var dot = document.getElementById("cursorDot");
+      var tx = -100, ty = -100, cx = -100, cy = -100;
+
+      document.addEventListener("mousemove", function(e) {
+        tx = e.clientX; ty = e.clientY;
+      });
+
+      document.querySelectorAll(".w-card, .p-card").forEach(function(el) {
+        el.addEventListener("mouseenter", function() { document.body.classList.add("cur-view"); });
+        el.addEventListener("mouseleave", function() { document.body.classList.remove("cur-view"); });
+      });
+      document.querySelectorAll("a, button").forEach(function(el) {
+        el.addEventListener("mouseenter", function() { document.body.classList.add("cur-link"); });
+        el.addEventListener("mouseleave", function() { document.body.classList.remove("cur-link"); });
+      });
+
+      function loop() {
+        cx += (tx - cx) * 0.16;
+        cy += (ty - cy) * 0.16;
+        dot.style.left = cx.toFixed(1) + "px";
+        dot.style.top  = cy.toFixed(1) + "px";
+        requestAnimationFrame(loop);
+      }
+      loop();
+    })();
+
+    // ── 6. Timecode ──────────────────────────────────────────
+    var tc = document.getElementById("timecode");
+    function pad2(n) { return String(n).padStart(2, "0"); }
+    setInterval(function() {
+      var d = new Date();
+      tc.textContent =
+        pad2(d.getHours())   + ":" + pad2(d.getMinutes()) + ":" +
+        pad2(d.getSeconds()) + ":" + pad2(Math.floor(d.getMilliseconds() / 10));
+    }, 40);
+
+    // ── 7. Scroll reveal ─────────────────────────────────────
+    var rvObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (!entry.isIntersecting) return;
+        var group = Array.from(entry.target.parentNode.querySelectorAll(".rv:not(.in)"));
+        var idx   = group.indexOf(entry.target);
+        entry.target.style.transitionDelay = (idx * 0.09) + "s";
+        entry.target.classList.add("in");
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll(".rv").forEach(function(el) { rvObs.observe(el); });
+
+    // ── 8. Works filter ──────────────────────────────────────
+    var tabs  = document.querySelectorAll(".f-tab");
+    var cards = document.querySelectorAll(".w-card");
+    tabs.forEach(function(tab) {
+      tab.addEventListener("click", function() {
+        tabs.forEach(function(t) { t.classList.remove("on"); });
+        tab.classList.add("on");
+        var f = tab.dataset.f;
+        cards.forEach(function(c) {
+          c.classList.toggle("hidden", f !== "all" && c.dataset.cat !== f);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

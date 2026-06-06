@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Creative Studio Sample</title>
+
+  <style>
+    /* =========================
+       Reset / Base
+    ========================= */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+      background: #f6f1e8;
+      color: #161616;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* =========================
+       Header
+    ========================= */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 100;
+      width: 100%;
+      padding: 24px 5vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      mix-blend-mode: difference;
+      color: white;
+    }
+
+    .logo {
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+    }
+
+    .nav {
+      display: flex;
+      gap: 28px;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .nav a {
+      position: relative;
+    }
+
+    .nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 0;
+      height: 2px;
+      background: currentColor;
+      transition: 0.3s;
+    }
+
+    .nav a:hover::after {
+      width: 100%;
+    }
+
+    /* =========================
+       Hero
+    ========================= */
+    .hero {
+      min-height: 100vh;
+      padding: 120px 5vw 60px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: center;
+      gap: 40px;
+      position: relative;
+    }
+
+    .hero-title {
+      font-size: clamp(64px, 13vw, 190px);
+      line-height: 0.82;
+      letter-spacing: -0.08em;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .hero-title span {
+      display: block;
+    }
+
+    .outline {
+      color: transparent;
+      -webkit-text-stroke: 2px #161616;
+    }
+
+    .hero-text {
+      margin-top: 32px;
+      max-width: 520px;
+      font-size: 17px;
+      line-height: 1.9;
+      font-weight: 600;
+    }
+
+    .hero-visual {
+      position: relative;
+      height: 560px;
+      border-radius: 36px;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, rgba(255, 116, 56, 0.85), rgba(44, 91, 255, 0.85)),
+        url("https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=80");
+      background-size: cover;
+      background-position: center;
+      transform: rotate(2deg);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.18);
+    }
+
+    .hero-badge {
+      position: absolute;
+      right: -20px;
+      bottom: 50px;
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      background: #161616;
+      color: #f6f1e8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-weight: 900;
+      font-size: 18px;
+      line-height: 1.2;
+      animation: spin 14s linear infinite;
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* =========================
+       Section Common
+    ========================= */
+    .section {
+      padding: 110px 5vw;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 30px;
+      margin-bottom: 42px;
+      border-top: 2px solid #161616;
+      padding-top: 24px;
+    }
+
+    .section-label {
+      font-size: 14px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .section-title {
+      font-size: clamp(42px, 8vw, 120px);
+      line-height: 0.9;
+      letter-spacing: -0.07em;
+      text-transform: uppercase;
+      font-weight: 900;
+    }
+
+    .section-copy {
+      max-width: 430px;
+      font-size: 15px;
+      line-height: 1.8;
+      font-weight: 600;
+    }
+
+    /* =========================
+       Works
+    ========================= */
+    .works-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 26px;
+    }
+
+    .work-card {
+      position: relative;
+      border-radius: 26px;
+      overflow: hidden;
+      background: white;
+      min-height: 420px;
+      cursor: pointer;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .work-card:hover {
+      transform: translateY(-12px) rotate(-1deg);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+    }
+
+    .work-image {
+      height: 300px;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.5s ease;
+    }
+
+    .work-card:hover .work-image {
+      transform: scale(1.08);
+    }
+
+    .work-body {
+      padding: 22px;
+    }
+
+    .work-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .tag {
+      border: 1px solid #161616;
+      border-radius: 999px;
+      padding: 5px 11px;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      background: #f6f1e8;
+    }
+
+    .work-title {
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+    }
+
+    .work-no {
+      position: absolute;
+      top: 18px;
+      left: 18px;
+      background: #161616;
+      color: #f6f1e8;
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    /* =========================
+       About
+    ========================= */
+    .about {
+      background: #161616;
+      color: #f6f1e8;
+      border-radius: 44px 44px 0 0;
+    }
+
+    .about-layout {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .about-image {
+      height: 520px;
+      border-radius: 34px;
+      background:
+        linear-gradient(rgba(0,0,0,0.05), rgba(0,0,0,0.25)),
+        url("https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1200&q=80");
+      background-size: cover;
+      background-position: center;
+    }
+
+    .about-title {
+      font-size: clamp(48px, 7vw, 110px);
+      line-height: 0.9;
+      letter-spacing: -0.07em;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+
+    .about-text {
+      font-size: 17px;
+      line-height: 2;
+      max-width: 640px;
+      font-weight: 600;
+      color: #ddd3c2;
+    }
+
+    .about-list {
+      margin-top: 34px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .about-item {
+      border-top: 1px solid rgba(255,255,255,0.25);
+      padding-top: 14px;
+      display: flex;
+      justify-content: space-between;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    /* =========================
+       Journal
+    ========================= */
+    .journal-list {
+      display: grid;
+      gap: 16px;
+    }
+
+    .journal-item {
+      display: grid;
+      grid-template-columns: 140px 1fr 120px;
+      gap: 24px;
+      align-items: center;
+      padding: 26px 0;
+      border-top: 2px solid #161616;
+      transition: 0.3s;
+    }
+
+    .journal-item:last-child {
+      border-bottom: 2px solid #161616;
+    }
+
+    .journal-item:hover {
+      padding-left: 20px;
+      background: rgba(255, 255, 255, 0.35);
+    }
+
+    .journal-date {
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .journal-title {
+      font-size: clamp(24px, 4vw, 52px);
+      line-height: 1;
+      letter-spacing: -0.05em;
+      font-weight: 900;
+    }
+
+    .journal-arrow {
+      text-align: right;
+      font-size: 34px;
+      font-weight: 900;
+    }
+
+    /* =========================
+       Contact
+    ========================= */
+    .contact {
+      padding: 120px 5vw;
+      background: #ff7438;
+      color: #161616;
+      text-align: center;
+    }
+
+    .contact-title {
+      font-size: clamp(58px, 12vw, 180px);
+      line-height: 0.85;
+      letter-spacing: -0.08em;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: 34px;
+    }
+
+    .contact p {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 34px;
+    }
+
+    .contact-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 220px;
+      height: 64px;
+      border-radius: 999px;
+      background: #161616;
+      color: #f6f1e8;
+      font-size: 15px;
+      font-weight: 900;
+      text-transform: uppercase;
+      transition: 0.3s;
+    }
+
+    .contact-button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+    }
+
+    /* =========================
+       Footer
+    ========================= */
+    .footer {
+      padding: 34px 5vw;
+      background: #161616;
+      color: #f6f1e8;
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    /* =========================
+       Fade Animation
+    ========================= */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .fade-up.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* =========================
+       Responsive
+    ========================= */
+    @media (max-width: 900px) {
+      .nav {
+        display: none;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 110px;
+      }
+
+      .hero-visual {
+        height: 420px;
+        transform: rotate(0);
+      }
+
+      .hero-badge {
+        width: 130px;
+        height: 130px;
+        font-size: 14px;
+        right: 20px;
+      }
+
+      .section-head {
+        display: block;
+      }
+
+      .section-copy {
+        margin-top: 20px;
+      }
+
+      .works-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .about-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .about-image {
+        height: 360px;
+      }
+
+      .journal-item {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .journal-arrow {
+        text-align: left;
+      }
+
+      .footer {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <a href="#" class="logo">JOJI STUDIO</a>
+
+    <nav class="nav">
+      <a href="#works">Works</a>
+      <a href="#about">About</a>
+      <a href="#journal">Journal</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content fade-up">
+      <h1 class="hero-title">
+        <span>Strike</span>
+        <span>Your</span>
+        <span class="outline">Vision</span>
+      </h1>
+
+      <p class="hero-text">
+        We create websites, visuals, and digital experiences that help small brands stand out.
+        Bold design, strong storytelling, and smooth interaction.
+      </p>
+    </div>
+
+    <div class="hero-visual fade-up">
+      <div class="hero-badge">
+        Creative<br />
+        Web<br />
+        Studio
+      </div>
+    </div>
+  </section>
+
+  <!-- Works -->
+  <section class="section" id="works">
+    <div class="section-head fade-up">
+      <div>
+        <p class="section-label">Selected Works</p>
+        <h2 class="section-title">Works</h2>
+      </div>
+
+      <p class="section-copy">
+        Brand websites, landing pages, portfolio sites, and digital visuals for creative businesses.
+      </p>
+    </div>
+
+    <div class="works-grid">
+      <article class="work-card fade-up">
+        <span class="work-no">01</span>
+        <div
+          class="work-image"
+          style="background-image: url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80');"
+        ></div>
+        <div class="work-body">
+          <div class="work-tags">
+            <span class="tag">Website</span>
+            <span class="tag">Branding</span>
+          </div>
+          <h3 class="work-title">Cafe Landing Page</h3>
+        </div>
+      </article>
+
+      <article class="work-card fade-up">
+        <span class="work-no">02</span>
+        <div
+          class="work-image"
+          style="background-image: url('https://images.unsplash.com/photo-1526948128573-703ee1aeb6fa?auto=format&fit=crop&w=900&q=80');"
+        ></div>
+        <div class="work-body">
+          <div class="work-tags">
+            <span class="tag">Portfolio</span>
+            <span class="tag">Photo</span>
+          </div>
+          <h3 class="work-title">Photographer Site</h3>
+        </div>
+      </article>
+
+      <article class="work-card fade-up">
+        <span class="work-no">03</span>
+        <div
+          class="work-image"
+          style="background-image: url('https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=900&q=80');"
+        ></div>
+        <div class="work-body">
+          <div class="work-tags">
+            <span class="tag">Studio</span>
+            <span class="tag">Web Design</span>
+          </div>
+          <h3 class="work-title">Creative Agency</h3>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="section about" id="about">
+    <div class="about-layout">
+      <div class="about-image fade-up"></div>
+
+      <div class="fade-up">
+        <h2 class="about-title">
+          We Make<br />
+          Ideas Move.
+        </h2>
+
+        <p class="about-text">
+          This sample site is designed for small businesses, creators, cafés,
+          photographers, studios, and personal brands that want a strong online presence.
+          The layout uses large typography, image cards, tags, scroll animation, and bold contrast.
+        </p>
+
+        <div class="about-list">
+          <div class="about-item">
+            <span>Design</span>
+            <span>Web / UI</span>
+          </div>
+          <div class="about-item">
+            <span>Development</span>
+            <span>HTML / CSS / JS</span>
+          </div>
+          <div class="about-item">
+            <span>Style</span>
+            <span>Bold / Creative</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Journal -->
+  <section class="section" id="journal">
+    <div class="section-head fade-up">
+      <div>
+        <p class="section-label">Fresh Journal</p>
+        <h2 class="section-title">Journal</h2>
+      </div>
+
+      <p class="section-copy">
+        News, project stories, design notes, and updates from our creative process.
+      </p>
+    </div>
+
+    <div class="journal-list">
+      <a href="#" class="journal-item fade-up">
+        <p class="journal-date">2026.06.05</p>
+        <h3 class="journal-title">How we build a visual-first website</h3>
+        <p class="journal-arrow">→</p>
+      </a>
+
+      <a href="#" class="journal-item fade-up">
+        <p class="journal-date">2026.05.28</p>
+        <h3 class="journal-title">Designing with bold typography</h3>
+        <p class="journal-arrow">→</p>
+      </a>
+
+      <a href="#" class="journal-item fade-up">
+        <p class="journal-date">2026.05.10</p>
+        <h3 class="journal-title">Why small brands need strong visuals</h3>
+        <p class="journal-arrow">→</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact" id="contact">
+    <h2 class="contact-title fade-up">
+      Let's<br />
+      Create
+    </h2>
+
+    <p class="fade-up">
+      Have a project, brand, or idea? Let's turn it into a website.
+    </p>
+
+    <a href="mailto:hello@example.com" class="contact-button fade-up">
+      Contact Us
+    </a>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2026 JOJI STUDIO</p>
+    <p>Creative Website Sample</p>
+  </footer>
+
+  <script>
+    // =========================
+    // スクロールでふわっと表示する処理
+    // =========================
+    const fadeElements = document.querySelectorAll(".fade-up");
+
+    const observer = new IntersectionObserver(
+      function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+          }
+        });
+      },
+      {
+        threshold: 0.15
+      }
+    );
+
+    fadeElements.forEach(function(element) {
+      observer.observe(element);
+    });
+  </script>
+
+</body>
+</html>
