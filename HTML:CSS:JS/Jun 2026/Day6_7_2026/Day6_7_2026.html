@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <style>
+            .highlight {
+                background-color: yellow;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>JS Review</h2>
+        <p id="demo">Hello!</p>
+        <p class="text">Paragraph 1</p>
+        <p class="text">Paragraph 2</p>
+        <button onclick="byId()">getElementById</button>
+        <button onclick="byClass()">getElementsByClassName</button>
+        <button onclick="toggleH()">Toggle</button>
+
+        <script>
+            // ===== Chapter 4 =====
+
+            // Variables & Types
+            let name = "John";
+            let age = 25;
+            let car;
+            document.write(typeof name + "<br>");  // string
+            document.write(typeof age + "<br>");   // number
+            document.write(typeof car + "<br>");   // undefined
+            document.write(typeof null + "<br>");  // object
+
+            // Operators
+            document.write((100 + 50 * 3) + "<br>");    // 250
+            document.write(((100 + 50) * 3) + "<br>");  // 450
+            document.write((5 === "5") + "<br>");        // false
+            document.write((true && false) + "<br>");    // false
+            document.write((true || false) + "<br>");    // true
+
+            // Control
+            let hour = 15;
+            if (hour < 10) {
+                document.write("Good morning" + "<br>");
+            } else if (hour < 18) {
+                document.write("Good day" + "<br>");
+            } else {
+                document.write("Good evening" + "<br>");
+            }
+
+            // 三項演算子
+            let access = (age > 18) ? "Allowed" : "Denied";
+            document.write(access + "<br>");
+
+            // Functions
+            function sum(a, b) {
+                return a + b;
+            }
+            const double = x => x * 2;
+            document.write("sum: " + sum(3, 5) + "<br>");
+            document.write("double: " + double(5) + "<br>");
+
+            // Arrays
+            let fruits = ["Apple", "Banana", "Mango"];
+            fruits.push("Orange");
+            fruits.pop();
+            fruits.unshift("Strawberry");
+            fruits.shift();
+            document.write(fruits.join(", ") + "<br>");
+            document.write(fruits.includes("Banana") + "<br>");
+            document.write(fruits.indexOf("Mango") + "<br>");
+
+            let index = fruits.indexOf("Banana");
+            if (index !== -1) {
+                fruits.splice(index, 1);
+            }
+            document.write("after splice: " + fruits + "<br>");
+
+            // Objects
+            let user = {
+                name: "John",
+                age: 30,
+                greet: function () {
+                    return "Hello, " + this.name;
+                }
+            };
+            document.write(user.name + "<br>");
+            document.write(user.greet() + "<br>");
+
+            // localStorage
+            function signup() {
+                let users = JSON.parse(localStorage.getItem("users")) || {};
+                users["johndoe"] = { name: "John", password: "1234" };
+                localStorage.setItem("users", JSON.stringify(users));
+            }
+
+            // ===== Chapter 5 DOM =====
+
+            function byId() {
+                document.getElementById("demo").textContent = "Changed!";
+            }
+
+            function byClass() {
+                const items = document.getElementsByClassName("text");
+                alert(items[1].textContent);
+            }
+
+            function toggleH() {
+                document.getElementById("demo").classList.toggle("highlight");
+            }
+        </script>
+    </body>
+</html>
