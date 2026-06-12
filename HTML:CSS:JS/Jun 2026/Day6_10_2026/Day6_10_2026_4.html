@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Display Sample</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6fb;
+      padding: 40px 24px;
+    }
+
+    .title {
+      font-size: 1.2rem;
+      color: #4a3fbf;
+      font-weight: bold;
+      margin: 24px 0 12px;
+    }
+
+    /* block */
+    .block-box {
+      display: block;
+      background-color: #ede9ff;
+      border: 2px solid #4a3fbf;
+      padding: 12px;
+      margin-bottom: 8px;
+    }
+
+    /* inline */
+    .inline-box {
+      display: inline;
+      background-color: #d4edda;
+      border: 2px solid #2ecc71;
+      padding: 4px 8px;
+    }
+
+    /* inline-block */
+    .inline-block-box {
+      display: inline-block;
+      background-color: #fff3cd;
+      border: 2px solid #ffc107;
+      padding: 12px;
+      width: 150px;
+      height: 60px;
+      text-align: center;
+    }
+
+    /* none */
+    .none-box {
+      display: none;
+      background-color: #f8d7da;
+    }
+
+    /* visibility hidden */
+    .hidden-box {
+      visibility: hidden;
+      background-color: #f8d7da;
+      border: 2px solid #dc3545;
+      padding: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- block -->
+  <p class="title">display: block</p>
+  <div class="block-box">Block 1（幅いっぱい）</div>
+  <div class="block-box">Block 2（前後に改行）</div>
+
+  <!-- inline -->
+  <p class="title">display: inline</p>
+  <span class="inline-box">Inline 1</span>
+  <span class="inline-box">Inline 2</span>
+  <span class="inline-box">Inline 3（改行なし）</span>
+
+  <!-- inline-block -->
+  <p class="title">display: inline-block</p>
+  <div class="inline-block-box">Inline-block 1</div>
+  <div class="inline-block-box">Inline-block 2</div>
+
+  <!-- none -->
+  <p class="title">display: none</p>
+  <p>前のテキスト</p>
+  <div class="none-box">見えない（スペースも消える）</div>
+  <p>後のテキスト（詰まる）</p>
+
+  <!-- visibility hidden -->
+  <p class="title">visibility: hidden</p>
+  <p>前のテキスト</p>
+  <div class="hidden-box">見えない（スペースは残る）</div>
+  <p>後のテキスト（スペースが残る）</p>
+
+</body>
+</html>

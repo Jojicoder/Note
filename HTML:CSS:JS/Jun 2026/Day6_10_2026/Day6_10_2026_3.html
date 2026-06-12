@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Position Sample</title>
+  <style>
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6fb;
+    }
+
+    /* =====================
+       fixed → スクロールしても固定
+       ===================== */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #4a3fbf;
+      color: #ffffff;
+      padding: 16px 24px;
+      font-weight: bold;
+      z-index: 100;
+    }
+
+    /* =====================
+       コンテンツ（navbarの下に余白）
+       ===================== */
+    .content {
+      margin-top: 60px;
+      padding: 40px 24px;
+    }
+
+    .section {
+      background-color: #ffffff;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 16px;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      font-size: 1.1rem;
+      color: #555;
+    }
+
+    /* =====================
+       relative → 通常位置からずらす
+       ===================== */
+    .relative-box {
+      position: relative;
+      top: 20px;
+      left: 30px;
+      background-color: #ede9ff;
+      border: 2px solid #4a3fbf;
+      padding: 16px;
+      border-radius: 8px;
+      display: inline-block;
+    }
+
+    /* =====================
+       absolute → 親要素を基準に配置
+       ===================== */
+    .parent {
+      position: relative;
+      background-color: #fff3cd;
+      border: 2px solid #ffc107;
+      border-radius: 8px;
+      height: 150px;
+      margin: 32px 0;
+    }
+
+    .absolute-box {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #ffc107;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    /* =====================
+       sticky → スクロールで固定に切り替わる
+       ===================== */
+    .sticky-box {
+      position: sticky;
+      top: 60px;
+      background-color: #d4edda;
+      border: 2px solid #2ecc71;
+      border-radius: 8px;
+      padding: 16px;
+      font-weight: bold;
+      color: #155724;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- fixed: スクロールしても固定 -->
+  <nav class="navbar">
+    position: fixed — スクロールしても固定！
+  </nav>
+
+  <div class="content">
+
+    <!-- relative -->
+    <div class="section">
+      <div>
+        <p>通常の位置</p>
+        <div class="relative-box">
+          position: relative — 通常位置から20px下・30px右にずれる
+        </div>
+      </div>
+    </div>
+
+    <!-- absolute -->
+    <div class="section">
+      <div class="parent" style="width:100%">
+        <p style="padding:16px;">親要素（position: relative）</p>
+        <div class="absolute-box">
+          position: absolute — 右上に配置
+        </div>
+      </div>
+    </div>
+
+    <!-- sticky -->
+    <div class="sticky-box">
+      position: sticky — スクロールするとここで固定！
+    </div>
+
+    <!-- スクロール用のコンテンツ -->
+    <div class="section">スクロールしてみてください 👇</div>
+    <div class="section">ナビバーは固定されています</div>
+    <div class="section">stickyボックスも固定されます</div>
+    <div class="section">スクロールを続けてみてください</div>
+    <div class="section">position の違いがわかりましたか？</div>
+
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Table Sample</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background-color: #f4f6fb;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 400px;
+      background-color: #ffffff;
+    }
+
+    caption {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #4a3fbf;
+      margin-bottom: 8px;
+    }
+
+    th {
+      background-color: #4a3fbf;
+      color: #ffffff;
+      padding: 10px 16px;
+      text-align: left;
+    }
+
+    td {
+      padding: 10px 16px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    tfoot td {
+      background-color: #f0eeff;
+      font-weight: bold;
+      color: #4a3fbf;
+    }
+  </style>
+</head>
+<body>
+
+  <table>
+    <caption>Student List</caption>
+
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Major</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td>Alice</td>
+        <td>25</td>
+        <td>Computer Science</td>
+      </tr>
+      <tr>
+        <td>Bob</td>
+        <td>30</td>
+        <td>Design</td>
+      </tr>
+      <tr>
+        <td>Carol</td>
+        <td>22</td>
+        <td>Engineering</td>
+      </tr>
+    </tbody>
+
+    <tfoot>
+      <tr>
+        <td>Total</td>
+        <td>3 students</td>
+        <td></td>
+      </tr>
+    </tfoot>
+  </table>
+
+</body>
+</html>
