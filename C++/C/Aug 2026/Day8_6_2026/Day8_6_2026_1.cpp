@@ -7,14 +7,12 @@ int main()
     SetTargetFPS(60);
 
     while(!WindowShouldClose()){
-
         Vector2 mouse = GetMousePosition();
 
         BeginDrawing();
 
         ClearBackground(RAYWHITE);
-
-        DrawCircleV(mouse,20,BLUE);
+        DrawCircleV(mouse, 20,BLUE);
         DrawText("Move the mouse!",20,20,20,DARKGRAY);
 
         EndDrawing();
@@ -22,5 +20,5 @@ int main()
 
     CloseWindow();
 
-    return 0; 
+    return 0;
 }
