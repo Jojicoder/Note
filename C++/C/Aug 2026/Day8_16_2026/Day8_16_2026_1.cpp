@@ -23,3 +23,19 @@ bool dfs(int now,int goal,
                 return false;
 }
 
+int main(){
+    vector<vector<int>> graph ={
+        {1,2},
+        {0,3},
+        {0,4},
+        {1},
+        {2}
+    };
+
+    vector<bool> visited(5,false);
+
+    int start = 0;
+    int goal = 4;
+
+    if(())
+}
