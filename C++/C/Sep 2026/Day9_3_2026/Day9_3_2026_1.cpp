@@ -25,7 +25,7 @@ int main()
         int now = q.front();
         q.pop();
 
-        cout << now << " ";
+        cout <<now << " ";
 
         for(int next : graph[now])
         {
@@ -36,6 +36,7 @@ int main()
             }
         }
     }
+
     cout << endl;
     return 0;
 }
