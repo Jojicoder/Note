@@ -1,0 +1,15 @@
+<?php
+
+$name = "Joji";
+$age = 25;
+
+echo "Name: " . $name . PHP_EOL;
+echo "Age: " . $age . PHP_EOL;
+
+if ($age >= 18) {
+    echo "Adult" . PHP_EOL;
+} else {
+    echo "Minor" . PHP_EOL;
+}
+
+?>
