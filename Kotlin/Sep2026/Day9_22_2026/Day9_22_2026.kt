@@ -9,4 +9,10 @@ fun main()
  
   println()
   }
+
+  val list = listOf(1,2,3,4,)
+
+  for(i in list){
+    println(i)
+  }
 }
