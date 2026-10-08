@@ -4,4 +4,16 @@ fun main(){
         print("$i ")
     }
     println()
+
+    for(i in 1..5){
+        print("$i ")
+        if(i==3)break;
+    }
+    println()
+
+    var n = 3
+    while(n>0){
+        println("n ")
+        n--
+    }
 }
